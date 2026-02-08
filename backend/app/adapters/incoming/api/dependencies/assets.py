@@ -1,0 +1,95 @@
+"""
+Asset-related dependency providers: DB session, repositories and asset use-cases.
+Single-responsibility: this module only exposes asset-related DI providers.
+"""
+from typing import Generator
+
+from fastapi import Depends
+from sqlalchemy.orm import Session
+
+from app.application.use_cases.asset.create_asset import CreateAssetUseCase
+from app.application.use_cases.asset.get_asset import GetAssetUseCase
+from app.application.use_cases.asset.get_all_assets import GetAllAssetsUseCase
+from app.application.use_cases.asset.update_asset import UpdateAssetUseCase
+from app.application.use_cases.asset.delete_asset import DeleteAssetUseCase
+from app.domain.ports.repository import IAssetRepository, IAssetTypeRepository, IPortfolioRepository
+from app.adapters.outgoing.persistence.database import SessionLocal
+from app.adapters.outgoing.persistence.repository.sqlalchemy_asset_repository import SQLAlchemyAssetRepository
+from app.adapters.outgoing.persistence.repository.sqlalchemy_asset_type_repository import SQLAlchemyAssetTypeRepository
+
+
+# Dependency to get a DB session
+def get_db_session() -> Generator[Session, None, None]:
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+# Repository providers for assets
+def get_asset_repository(db: Session = Depends(get_db_session)) -> IAssetRepository:
+    return SQLAlchemyAssetRepository(db)
+
+
+def get_asset_type_repository(db: Session = Depends(get_db_session)) -> IAssetTypeRepository:
+    return SQLAlchemyAssetTypeRepository(db)
+
+
+# Asset use case providers
+def get_all_assets_use_case(
+    asset_repository: IAssetRepository = Depends(get_asset_repository),
+) -> GetAllAssetsUseCase:
+    return GetAllAssetsUseCase(asset_repository)
+
+
+def get_asset_use_case(
+    asset_repository: IAssetRepository = Depends(get_asset_repository),
+) -> GetAssetUseCase:
+    return GetAssetUseCase(asset_repository)
+
+
+def create_asset_use_case(
+    asset_repo: IAssetRepository = Depends(get_asset_repository),
+    asset_type_repo: IAssetTypeRepository = Depends(get_asset_type_repository),
+    # portfolio repo is imported lazily to avoid circular import at module import time
+) -> CreateAssetUseCase:
+    # Import portfolio repository provider lazily (avoids circular module import)
+    from app.adapters.incoming.api.dependencies.portfolios import get_portfolio_repository
+
+    # Use Depends on the portfolio provider when FastAPI resolves dependencies
+    portfolio_repo: IPortfolioRepository = Depends(get_portfolio_repository)  # type: ignore
+
+    # Return a factory-like object for FastAPI; actual call happens when FastAPI resolves deps
+    def _factory(
+        asset_repo_inner: IAssetRepository = asset_repo,
+        portfolio_repo_inner: IPortfolioRepository = portfolio_repo,
+        asset_type_repo_inner: IAssetTypeRepository = asset_type_repo,
+    ) -> CreateAssetUseCase:
+        return CreateAssetUseCase(asset_repo_inner, portfolio_repo_inner, asset_type_repo_inner)
+
+    return _factory()  # FastAPI will not call this at module import in our tests; we return instance
+
+
+def update_asset_use_case(
+    asset_repository: IAssetRepository = Depends(get_asset_repository),
+) -> UpdateAssetUseCase:
+    return UpdateAssetUseCase(asset_repository)
+
+
+def delete_asset_use_case(
+    asset_repository: IAssetRepository = Depends(get_asset_repository),
+) -> DeleteAssetUseCase:
+    return DeleteAssetUseCase(asset_repository)
+
+
+__all__ = [
+    'get_db_session',
+    'get_asset_repository',
+    'get_asset_type_repository',
+    'get_all_assets_use_case',
+    'get_asset_use_case',
+    'create_asset_use_case',
+    'update_asset_use_case',
+    'delete_asset_use_case',
+]

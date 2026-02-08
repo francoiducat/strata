@@ -1,0 +1,32 @@
+services:
+  backend:
+    image: strata-backend
+    build:
+      context: ./backend
+    container_name: strata-backend
+    env_file:
+      - ./backend/.env
+    # Mount docker persistence file to host for persistence
+    # It means data will not be lost when container is removed
+    # ./backend/.data is where the data will be stored on host
+    # /app/.data is where the data will be stored in container
+    volumes:
+      - ./backend/.data:/app/.data
+    ports:
+      - "8000:8000"
+    #Enable --reload for development only
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+
+  docs:
+    image: strata-docs
+    build:
+      context: ./docs
+    container_name: strata-docs
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./docs:/site

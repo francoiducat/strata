@@ -1,0 +1,26 @@
+# Environment
+.venv/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database
+*.db
+.data/
+backend/.data/
+*.sqlite3
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+.idea/
+
+# docs
+docs/.venv/
+/backend/tests/coverage/.coverage
+/backend/tests/coverage/html/
