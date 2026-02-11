@@ -7,6 +7,7 @@ Strata is a small, domain-driven FastAPI backend for organizing and managing ass
 ## Quick links
 - Source: `backend/`
 - Docs: `docs/` (MkDocs)
+- **📚 Live Documentation:** https://strata.ducatillon.net/docs/ (deployed via GitHub Actions)
 - Migrations: `backend/alembic/`
 - Tests: `tests/unit/`
 
