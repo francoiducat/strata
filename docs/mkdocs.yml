@@ -1,8 +1,10 @@
 site_name: Strata Documentation
 site_description: "Strata - Collect. Plan. Grow."
+site_url: https://strata.ducatillon.net/docs/
+use_directory_urls: true
 
-repo_url: https://github.com/francoiducat/hugo-air
-repo_name: francoiducat/hugo-air
+repo_url: https://github.com/francoiducat/strata
+repo_name: francoiducat/strata
 
 theme:
   name: material
