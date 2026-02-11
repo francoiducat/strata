@@ -12,7 +12,8 @@ This workflow automatically:
 - Can also be triggered manually via workflow_dispatch
 - Installs Python 3.12 and MkDocs dependencies
 - Builds the MkDocs site from the `docs/` directory
-- Deploys the built site to the `gh-pages` branch
+- Deploys the built site to the `/docs` subdirectory in the `gh-pages` branch
+- Creates a root redirect page that redirects to `/docs/`
 - Creates a `CNAME` file with `strata.ducatillon.net` for custom domain routing
 
 ### 2. MkDocs Configuration Updates
@@ -99,11 +100,13 @@ All internal links in your MkDocs files use relative paths with `.md` extensions
 
 ### Custom Domain with Subdirectory
 
-The configuration handles the `/docs` subdirectory correctly:
+The configuration deploys the documentation to the `/docs` subdirectory:
 - `site_url: https://strata.ducatillon.net/docs/` tells MkDocs the base path
 - All generated links are relative, so they work at any path
+- The workflow deploys the built site to a `/docs` subdirectory in `gh-pages`
+- A root `index.html` redirects visitors from `/` to `/docs/`
 - The `CNAME` file tells GitHub Pages to serve at `strata.ducatillon.net`
-- GitHub Pages serves your site at the root, and MkDocs URLs work with `/docs/`
+- The site is accessible at `https://strata.ducatillon.net/docs/`
 
 ## Troubleshooting
 

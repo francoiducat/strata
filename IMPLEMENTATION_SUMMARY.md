@@ -45,13 +45,15 @@ Your MkDocs Material documentation site is now configured for automated deployme
            ▼
 ┌──────────────────────────┐
 │  Deploy to gh-pages       │
-│  + Create CNAME file      │
+│  - Site in /docs folder   │
+│  - Root redirect to /docs │
+│  - Create CNAME file      │
 └──────────┬───────────────┘
            │
            ▼
 ┌──────────────────────────────┐
 │  GitHub Pages Serves Site     │
-│  at strata.ducatillon.net    │
+│  at strata.ducatillon.net/docs│
 └──────────────────────────────┘
 ```
 
@@ -101,11 +103,12 @@ After completing steps 1-3:
 ✅ **Fully Automated** - Push to main = automatic deployment  
 ✅ **Clean Repository** - No build artifacts in main branch  
 ✅ **No Local Dependencies** - Edit on GitHub UI, site updates automatically  
-✅ **Custom Domain** - Professional URL: strata.ducatillon.net/docs  
+✅ **Custom Domain with /docs Path** - Professional URL: strata.ducatillon.net/docs  
 ✅ **Clean URLs** - `/QuickStart/` instead of `/QuickStart.html`  
 ✅ **Material Theme** - Beautiful, responsive documentation  
 ✅ **Mermaid Diagrams** - Fully supported in your docs  
 ✅ **Consistent Builds** - Same environment every time  
+✅ **Root Redirect** - Root (/) automatically redirects to /docs/  
 
 ## 🔗 Link Structure - Already Working!
 
