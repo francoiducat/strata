@@ -22,5 +22,6 @@ Thumbs.db
 
 # docs
 docs/.venv/
+docs/site/
 /backend/tests/coverage/.coverage
 /backend/tests/coverage/html/
