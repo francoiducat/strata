@@ -1,0 +1,2523 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Strata - Collect. Plan. Grow.">
+      
+      
+      
+        <link rel="canonical" href="https://strata.ducatillon.net/docs/UseCases/">
+      
+      
+        <link rel="prev" href="../Features/">
+      
+      
+        <link rel="next" href="../QuickStart/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Use Cases - Strata Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#use-cases" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Strata Documentation" class="md-header__button md-logo" aria-label="Strata Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Strata Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Use Cases
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/francoiducat/strata" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    francoiducat/strata
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../StrataApp/" class="md-tabs__link">
+          
+  
+  
+  Strata App
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../QuickStart/" class="md-tabs__link">
+          
+  
+  
+  Developer Docs
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Strata Documentation" class="md-nav__button md-logo" aria-label="Strata Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Strata Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/francoiducat/strata" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    francoiducat/strata
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strata App
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strata App
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../StrataApp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Cases
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1checking-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.Checking Account
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.Checking Account">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2wardrobe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.Wardrobe
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.Wardrobe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3real-estate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.Real Estate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.Real Estate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots-historical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots (Historical)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lego-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. LEGO Set
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. LEGO Set">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-household-furniture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Household Furniture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Household Furniture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-mortgage-loan-liability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Mortgage Loan (Liability)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Mortgage Loan (Liability)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#liabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Liabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Liabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transaction-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Picture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#portfolio-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portfolio Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Portfolio Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#portfolio-my-personal-wealth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portfolio: "My Personal Wealth"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#portfolio-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portfolio Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category in Action
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Docs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Docs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QuickStart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TechStack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tech Stack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DataModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MentalModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mental Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Alembic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alembic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1checking-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.Checking Account
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.Checking Account">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2wardrobe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.Wardrobe
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.Wardrobe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3real-estate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.Real Estate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.Real Estate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots-historical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots (Historical)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lego-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. LEGO Set
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. LEGO Set">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-household-furniture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Household Furniture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Household Furniture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-mortgage-loan-liability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Mortgage Loan (Liability)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Mortgage Loan (Liability)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asset_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balance-snapshots_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balance Snapshots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#liabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Liabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Liabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transaction-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-picture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Picture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#portfolio-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portfolio Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Portfolio Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#portfolio-my-personal-wealth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portfolio: "My Personal Wealth"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#portfolio-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portfolio Snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category in Action
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="use-cases">Use Cases</h1>
+<p>This page illustrates the Asset data model with concrete, real-life examples.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="1checking-account">1.Checking Account</h3>
+<h4 id="scenario">Scenario</h4>
+<p>You manually track your checking account balance.</p>
+<h4 id="asset">Asset</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Checking Account</td>
+</tr>
+<tr>
+<td>Asset Type</td>
+<td>CASH</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>Bank Accounts, Liquid Assets</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td>null</td>
+</tr>
+<tr>
+<td>Disposed</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>liquidity, emergency_fund</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transactions">Transactions</h4>
+<p>No transactions (manual tracking only for now).</p>
+<h4 id="balance-snapshots">Balance Snapshots</h4>
+<table>
+<thead>
+<tr>
+<th>Snapshot Date</th>
+<th>Value</th>
+<th>Currency</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-01-01</td>
+<td>10,000</td>
+<td>EUR</td>
+<td>manual</td>
+</tr>
+<tr>
+<td>2024-02-01</td>
+<td>10,450</td>
+<td>EUR</td>
+<td>manual</td>
+</tr>
+<tr>
+<td>2024-03-01</td>
+<td>9,800</td>
+<td>EUR</td>
+<td>manual</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Portfolio Valuation Rule</strong>: Use the latest balance snapshot (€9,800).</p>
+<h3 id="2wardrobe">2.Wardrobe</h3>
+<h4 id="scenario_1">Scenario</h4>
+<p>You track your summer t-shirt collection. These t-shirts are both casual wear AND part of your workout clothes.</p>
+<h4 id="asset_1">Asset</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Summer T-Shirts Collection</td>
+</tr>
+<tr>
+<td>Asset Type</td>
+<td>PERSONAL_PROPERTY</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>Clothing &gt; T-Shirts, Athletic Wear, Casual Wear</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Disposed</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>summer, cotton, breathable</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transactions_1">Transactions</h4>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Type</th>
+<th>Quantity</th>
+<th>Unit Price</th>
+<th>Currency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2020-06-01</td>
+<td>ACQUIRE</td>
+<td>10</td>
+<td>25</td>
+<td>EUR</td>
+</tr>
+<tr>
+<td>2023-08-15</td>
+<td>ACQUIRE</td>
+<td>5</td>
+<td>30</td>
+<td>EUR</td>
+</tr>
+</tbody>
+</table>
+<h4 id="balance-snapshots_1">Balance Snapshots</h4>
+<table>
+<thead>
+<tr>
+<th>Snapshot Date</th>
+<th>Value</th>
+<th>Currency</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-01-01</td>
+<td>225</td>
+<td>EUR</td>
+<td>manual</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Asset belongs to THREE categories simultaneously</p>
+<ul>
+<li>Clothing &gt; T-Shirts (hierarchy path)</li>
+<li>Athletic Wear (cross-cutting category)</li>
+<li>Casual Wear (cross-cutting category)</li>
+</ul>
+</div>
+<p><strong>Total acquisition cost</strong>: €400 (10×25 + 5×30)<br />
+<strong>Current value</strong>: €225 (depreciation tracked via snapshot)</p>
+<h3 id="3real-estate">3.Real Estate</h3>
+<h4 id="scenario_2">Scenario</h4>
+<p>You buy an apartment that serves as both your primary residence AND a rental investment (you rent out one room on Airbnb).</p>
+<h4 id="asset_2">Asset</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Apartment Paris 11th</td>
+</tr>
+<tr>
+<td>Asset Type</td>
+<td>REAL_ESTATE</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>Real Estate &gt; Residential &gt; Apartments, Primary Residence, Income Generating Assets</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Disposed</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>paris, airbnb, partial_rental, sold</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transactions_2">Transactions</h4>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Type</th>
+<th>Quantity</th>
+<th>Unit Price</th>
+<th>Currency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2015-05-10</td>
+<td>ACQUIRE</td>
+<td>1</td>
+<td>300,000</td>
+<td>EUR</td>
+</tr>
+<tr>
+<td>2023-09-20</td>
+<td>DISPOSE</td>
+<td>1</td>
+<td>420,000</td>
+<td>EUR</td>
+</tr>
+</tbody>
+</table>
+<h4 id="balance-snapshots-historical">Balance Snapshots (Historical)</h4>
+<table>
+<thead>
+<tr>
+<th>Snapshot Date</th>
+<th>Value</th>
+<th>Currency</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-01-01</td>
+<td>330,000</td>
+<td>EUR</td>
+<td>manual</td>
+</tr>
+<tr>
+<td>2021-01-01</td>
+<td>380,000</td>
+<td>EUR</td>
+<td>manual</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Asset belongs to THREE categories simultaneously</p>
+<ul>
+<li>Real Estate &gt; Residential &gt; Apartments (hierarchy path)</li>
+<li>Primary Residence (legal classification)</li>
+<li>Income Generating Assets (functional classification)</li>
+</ul>
+</div>
+<p><strong>Realized gain</strong>: €120,000 (€420k - €300k)</p>
+<h3 id="4-lego-set">4. LEGO Set</h3>
+<h4 id="scenario_3">Scenario</h4>
+<p>You found a LEGO Star Wars set at home. It's both a collectible investment AND part of your children's toy collection.</p>
+<h4 id="asset_3">Asset</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>LEGO Star Wars Millennium Falcon</td>
+</tr>
+<tr>
+<td>Asset Type</td>
+<td>PERSONAL_PROPERTY</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>Toys &gt; Building Sets &gt; LEGO, Collectibles &gt; Investment Grade, Kids Room Items</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Disposed</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>star_wars, vintage, unopened, appreciating</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transactions_3">Transactions</h4>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Type</th>
+<th>Quantity</th>
+<th>Unit Price</th>
+<th>Currency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022-08-15</td>
+<td>ACQUIRE</td>
+<td>1</td>
+<td>0</td>
+<td>EUR</td>
+</tr>
+</tbody>
+</table>
+<h4 id="balance-snapshots_2">Balance Snapshots</h4>
+<table>
+<thead>
+<tr>
+<th>Snapshot Date</th>
+<th>Value</th>
+<th>Currency</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-01-01</td>
+<td>350</td>
+<td>EUR</td>
+<td>manual</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Acquisition price</strong>: €0 (found item)<br />
+<strong>Current market value</strong>: €350</p>
+<h3 id="5-household-furniture">5. Household Furniture</h3>
+<p>Useful with bulk items.</p>
+<h4 id="scenario_4">Scenario</h4>
+<p>You own 10 identical wooden chairs that serve multiple purposes: dining, office workspace, and guest seating.</p>
+<h4 id="asset_4">Asset</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Wooden Dining Chairs</td>
+</tr>
+<tr>
+<td>Asset Type</td>
+<td>PERSONAL_PROPERTY</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>Home &gt; Furniture &gt; Dining, Office Equipment, Multi-Purpose Items</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Disposed</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>wood, stackable, versatile</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transactions_4">Transactions</h4>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Type</th>
+<th>Quantity</th>
+<th>Unit Price</th>
+<th>Currency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2020-06-01</td>
+<td>ACQUIRE</td>
+<td>10</td>
+<td>40</td>
+<td>EUR</td>
+</tr>
+</tbody>
+</table>
+<h4 id="balance-snapshots_3">Balance Snapshots</h4>
+<table>
+<thead>
+<tr>
+<th>Snapshot Date</th>
+<th>Value</th>
+<th>Currency</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-01-01</td>
+<td>300</td>
+<td>EUR</td>
+<td>manual</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Asset belongs to THREE categories simultaneously</p>
+<ul>
+<li>Home &gt; Furniture &gt; Dining (primary use)</li>
+<li>Office Equipment (secondary use)</li>
+<li>Multi-Purpose Items (functional classification)</li>
+</ul>
+</div>
+<p><strong>Total acquisition cost</strong>: €400 (10×40)<br />
+<strong>Current value</strong>: €300 (25% depreciation)</p>
+<h3 id="6-mortgage-loan-liability">6. Mortgage Loan (Liability)</h3>
+<h4 id="scenario_5">Scenario</h4>
+<p>You have a mortgage loan on your primary residence. This is a <strong>liability</strong> (negative asset).</p>
+<h4 id="asset_5">Asset</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Mortgage - Paris Apartment</td>
+</tr>
+<tr>
+<td>Asset Type</td>
+<td>LOAN</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>Liabilities &gt; Real Estate Loans, Long-Term Debt</td>
+</tr>
+<tr>
+<td>Quantity</td>
+<td>null</td>
+</tr>
+<tr>
+<td>Disposed</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>mortgage, primary_residence, fixed_rate</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transactions_5">Transactions</h4>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Type</th>
+<th>Quantity</th>
+<th>Unit Price</th>
+<th>Currency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2015-05-10</td>
+<td>ACQUIRE</td>
+<td>1</td>
+<td>-250,000</td>
+<td>EUR</td>
+<td>Initial loan</td>
+</tr>
+<tr>
+<td>2016-01-01</td>
+<td>DISPOSE</td>
+<td>1</td>
+<td>5,000</td>
+<td>EUR</td>
+<td>Principal payment</td>
+</tr>
+<tr>
+<td>2017-01-01</td>
+<td>DISPOSE</td>
+<td>1</td>
+<td>5,200</td>
+<td>EUR</td>
+<td>Principal payment</td>
+</tr>
+<tr>
+<td>2018-01-01</td>
+<td>DISPOSE</td>
+<td>1</td>
+<td>5,400</td>
+<td>EUR</td>
+<td>Principal payment</td>
+</tr>
+</tbody>
+</table>
+<h4 id="balance-snapshots_4">Balance Snapshots</h4>
+<table>
+<thead>
+<tr>
+<th>Snapshot Date</th>
+<th>Value</th>
+<th>Currency</th>
+<th>Source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-01-01</td>
+<td>-220,000</td>
+<td>EUR</td>
+<td>manual</td>
+<td>Remaining debt</td>
+</tr>
+<tr>
+<td>2024-02-01</td>
+<td>-219,500</td>
+<td>EUR</td>
+<td>manual</td>
+<td>After payment</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Key Points</p>
+<ul>
+<li>Initial acquisition is <strong>negative</strong> (-€250,000 = you owe this)</li>
+<li>DISPOSE transactions are <strong>positive</strong> (principal payments reduce the debt)</li>
+<li>Balance snapshots are <strong>negative</strong> (current debt owed)</li>
+<li>Portfolio valuation: This <strong>subtracts</strong> from total net worth</li>
+</ul>
+</div>
+<h2 id="liabilities">Liabilities</h2>
+<p><strong>Liabilities are assets with negative values:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Asset Type</th>
+<th>Typical Balance</th>
+<th>Portfolio Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CASH</td>
+<td>Positive</td>
+<td>Increases net worth</td>
+</tr>
+<tr>
+<td>REAL_ESTATE</td>
+<td>Positive</td>
+<td>Increases net worth</td>
+</tr>
+<tr>
+<td>LOAN</td>
+<td>Negative</td>
+<td>Decreases net worth</td>
+</tr>
+<tr>
+<td>CREDIT_CARD</td>
+<td>Negative</td>
+<td>Decreases net worth</td>
+</tr>
+<tr>
+<td>MORTGAGE</td>
+<td>Negative</td>
+<td>Decreases net worth</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Portfolio Calculation:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__code-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Net Worth = Sum of all asset balances (positive + negative)
+</span><span id="__code-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__code-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Example:
+</span><span id="__code-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  Checking Account:     +€10,000
+</span><span id="__code-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  Paris Apartment:     +€420,000
+</span><span id="__code-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  Mortgage Loan:       -€220,000
+</span><span id="__code-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  ────────────────────────────────
+</span><span id="__code-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  Net Worth:           +€210,000
+</span></code></pre></div>
+<h3 id="transaction-logic">Transaction Logic</h3>
+<p><strong>For a LOAN asset:</strong></p>
+<ul>
+<li><code>ACQUIRE</code> with negative unit_price = Taking out a loan (you owe money)</li>
+<li><code>DISPOSE</code> with positive unit_price = Paying off principal (reducing debt)</li>
+</ul>
+<p><strong>Example Flow:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__code-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>2015-05-10: ACQUIRE 1 × -€250,000 = -€250,000 (loan originated)
+</span><span id="__code-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>2016-01-01: DISPOSE 1 × +€5,000   = -€245,000 (paid €5k principal)
+</span><span id="__code-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>2017-01-01: DISPOSE 1 × +€5,200   = -€239,800 (paid €5.2k principal)
+</span></code></pre></div>
+<h2 id="complete-picture">Complete Picture</h2>
+<p><strong>Assets (Positive):</strong></p>
+<ul>
+<li>Checking Account: €10,000</li>
+<li>Paris Apartment: €420,000</li>
+</ul>
+<p><strong>Liabilities (Negative):</strong></p>
+<ul>
+<li>Mortgage Loan: -€220,000</li>
+<li>Credit Card: -€2,000</li>
+</ul>
+<p><strong>Net Worth:</strong></p>
+<p>€10,000 + €420,000 - €220,000 - €2,000 = <strong>€208,000</strong></p>
+<p>This is tracked in Portfolio Snapshots.</p>
+<h2 id="portfolio-example">Portfolio Example</h2>
+<p>All assets combined into a portfolio view.</p>
+<h3 id="portfolio-my-personal-wealth">Portfolio: "My Personal Wealth"</h3>
+<table>
+<thead>
+<tr>
+<th>Asset Name</th>
+<th>Asset Type</th>
+<th>Categories</th>
+<th>Current Value</th>
+<th>Currency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Checking Account</td>
+<td>CASH</td>
+<td>Bank Accounts, Liquid Assets</td>
+<td>9,800</td>
+<td>EUR</td>
+</tr>
+<tr>
+<td>Summer T-Shirts</td>
+<td>PERSONAL_PROPERTY</td>
+<td>Clothing &gt; T-Shirts, Athletic Wear, Casual Wear</td>
+<td>225</td>
+<td>EUR</td>
+</tr>
+<tr>
+<td>Apartment Paris</td>
+<td>REAL_ESTATE</td>
+<td>Residential &gt; Apartments, Primary Residence, Income Generating</td>
+<td>0</td>
+<td>EUR</td>
+</tr>
+<tr>
+<td>LEGO Millennium Falcon</td>
+<td>PERSONAL_PROPERTY</td>
+<td>Toys &gt; LEGO, Collectibles, Kids Room</td>
+<td>350</td>
+<td>EUR</td>
+</tr>
+<tr>
+<td>Wooden Chairs</td>
+<td>PERSONAL_PROPERTY</td>
+<td>Furniture &gt; Dining, Office Equipment, Multi-Purpose</td>
+<td>300</td>
+<td>EUR</td>
+</tr>
+</tbody>
+</table>
+<h3 id="portfolio-snapshot">Portfolio Snapshot</h3>
+<table>
+<thead>
+<tr>
+<th>Snapshot Date</th>
+<th>Total Value</th>
+<th>Currency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-01-01</td>
+<td>10,675</td>
+<td>EUR</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Apartment is disposed (sold), so its current value is €0 in the portfolio.</p>
+</div>
+<h2 id="category-in-action">Category in Action</h2>
+<p>Categories let you organize and filter assets.</p>
+<div class="admonition note">
+<p class="admonition-title">Asset belongs to THREE categories simultaneously</p>
+<ul>
+<li>Toys &gt; Building Sets &gt; LEGO (what it is)</li>
+<li>Collectibles &gt; Investment Grade (how you treat it)</li>
+<li>Kids Room Items (where it's stored)</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Filtering by "Income Generating Assets"</p>
+<ul>
+<li>Apartment Paris 11th (partial Airbnb rental)</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Filtering by "Multi-Purpose Items"</p>
+<ul>
+<li>Wooden Dining Chairs (used for dining, office, guests)</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Filtering by "Collectibles"</p>
+<ul>
+<li>LEGO Star Wars Millennium Falcon</li>
+</ul>
+</div>
+<p>One asset can appear in multiple organizational contexts without duplication.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <strong>Strata</strong> - Collect. Plan. Grow.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
