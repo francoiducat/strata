@@ -7,6 +7,9 @@ from .Exceptions import (
     AssetTypeNotFound,
     PortfolioNotFound,
     CategoryNotFound,
+    TagNotFound,
+    DuplicateName,
+    CategoryHasChildren,
 )
 
 __all__ = [
@@ -14,5 +17,8 @@ __all__ = [
     "AssetTypeNotFound",
     "PortfolioNotFound",
     "CategoryNotFound",
+    "TagNotFound",
+    "DuplicateName",
+    "CategoryHasChildren",
 ]
 

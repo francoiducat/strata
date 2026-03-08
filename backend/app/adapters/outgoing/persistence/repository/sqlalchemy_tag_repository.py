@@ -4,7 +4,7 @@ SQLAlchemy Tag Repository Implementation
 Concrete implementation of TagRepository using SQLAlchemy.
 """
 from typing import Optional, cast, Any
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.domain.ports.repository.tag_repository import ITagRepository
 from app.adapters.outgoing.persistence.models import TagModel, AssetModel

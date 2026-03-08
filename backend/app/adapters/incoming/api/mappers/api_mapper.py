@@ -9,6 +9,10 @@ from app.domain.entities.portfolio import Portfolio
 from ..schemas.asset_response import AssetResponse
 from ..schemas.portfolio_response import PortfolioResponse
 from ..schemas.portfolio_snapshot_response import PortfolioSnapshotResponse
+from ..schemas.asset_type_response import AssetTypeResponse
+from ..schemas.asset_snapshot_response import AssetSnapshotResponse
+from ..schemas.category_response import CategoryResponse
+from ..schemas.tag_response import TagResponse
 
 
 class ApiMapper:
@@ -62,3 +66,35 @@ class ApiMapper:
     @staticmethod
     def to_portfolio_snapshot_response_list(snapshots: List[Any]) -> List[PortfolioSnapshotResponse]:
         return [ApiMapper.to_portfolio_snapshot_response(s) for s in snapshots]
+
+    @staticmethod
+    def to_asset_type_response(asset_type: Any) -> AssetTypeResponse:
+        return AssetTypeResponse.model_validate(asset_type)
+
+    @staticmethod
+    def to_asset_type_response_list(asset_types: List[Any]) -> List[AssetTypeResponse]:
+        return [ApiMapper.to_asset_type_response(at) for at in asset_types]
+
+    @staticmethod
+    def to_category_response(category: Any) -> CategoryResponse:
+        return CategoryResponse.model_validate(category)
+
+    @staticmethod
+    def to_category_response_list(categories: List[Any]) -> List[CategoryResponse]:
+        return [ApiMapper.to_category_response(c) for c in categories]
+
+    @staticmethod
+    def to_tag_response(tag: Any) -> TagResponse:
+        return TagResponse.model_validate(tag)
+
+    @staticmethod
+    def to_tag_response_list(tags: List[Any]) -> List[TagResponse]:
+        return [ApiMapper.to_tag_response(t) for t in tags]
+
+    @staticmethod
+    def to_asset_snapshot_response(snapshot: Any) -> AssetSnapshotResponse:
+        return AssetSnapshotResponse.model_validate(snapshot)
+
+    @staticmethod
+    def to_asset_snapshot_response_list(snapshots: List[Any]) -> List[AssetSnapshotResponse]:
+        return [ApiMapper.to_asset_snapshot_response(s) for s in snapshots]

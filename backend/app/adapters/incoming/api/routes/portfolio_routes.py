@@ -9,6 +9,7 @@ from app.application.use_cases.portfolio.delete_portfolio import DeletePortfolio
 from app.application.use_cases.portfolio.get_all_portfolios import GetAllPortfoliosUseCase
 from app.application.use_cases.portfolio.take_portfolio_snapshot import TakePortfolioSnapshotUseCase
 from app.application.use_cases.portfolio.get_portfolio_snapshots import GetPortfolioSnapshotsUseCase
+from app.application.use_cases.portfolio.update_portfolio import UpdatePortfolioCommand, UpdatePortfolioUseCase
 from app.adapters.incoming.api.dependencies.portfolios import (
     create_portfolio_use_case,
     get_portfolio_use_case,
@@ -16,11 +17,13 @@ from app.adapters.incoming.api.dependencies.portfolios import (
     get_all_portfolios_use_case,
     take_portfolio_snapshot_use_case,
     get_portfolio_snapshots_use_case,
+    update_portfolio_use_case,
 )
 from app.adapters.incoming.api.mappers.api_mapper import ApiMapper
-from app.adapters.incoming.api.schemas.portfolio_request import PortfolioCreateRequest
+from app.adapters.incoming.api.schemas.portfolio_request import PortfolioCreateRequest, PortfolioUpdateRequest
 from app.adapters.incoming.api.schemas.portfolio_response import PortfolioResponse
 from app.adapters.incoming.api.schemas.portfolio_snapshot_response import PortfolioSnapshotResponse
+from app.adapters.incoming.api.schemas.error_response import ErrorResponse
 
 
 class PortfolioRoutes:
@@ -78,5 +81,15 @@ class PortfolioRoutes:
         ) -> list[PortfolioSnapshotResponse]:
             portfolio = use_case.execute(portfolio_id)
             return ApiMapper.to_portfolio_snapshot_response_list(portfolio.snapshots or [])
+
+        @router.put("/{portfolio_id}", response_model=PortfolioResponse, responses={404: {"model": ErrorResponse}})
+        def update_portfolio(
+            portfolio_id: UUID,
+            request: PortfolioUpdateRequest,
+            use_case: UpdatePortfolioUseCase = Depends(update_portfolio_use_case),
+        ) -> PortfolioResponse:
+            command = UpdatePortfolioCommand(portfolio_id=portfolio_id, **request.model_dump())
+            updated = use_case.execute(command)
+            return ApiMapper.to_portfolio_response(updated)
 
         return router

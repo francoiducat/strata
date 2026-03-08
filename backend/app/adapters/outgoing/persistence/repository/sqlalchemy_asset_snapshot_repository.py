@@ -3,7 +3,7 @@ SQLAlchemy AssetSnapshot Repository Implementation
 
 Concrete implementation of AssetSnapshotRepository using SQLAlchemy.
 """
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 from sqlalchemy.orm import Session
 
