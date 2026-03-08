@@ -13,3 +13,9 @@ class Tag(BaseModel):
     """
     id: UUID
     name: str
+
+    def __hash__(self) -> int:
+        return hash(self.id)
+
+    def __eq__(self, other: object) -> bool:
+        return isinstance(other, Tag) and self.id == other.id

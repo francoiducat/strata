@@ -1,23 +1,24 @@
 """Unit tests for CreateAssetUseCase."""
 import pytest
+from datetime import datetime, timezone
 from decimal import Decimal
 from unittest.mock import MagicMock
 from uuid import uuid4
 
 from app.application.use_cases.asset.create_asset import CreateAssetUseCase, CreateAssetRequest
+from app.domain.entities.asset_type import AssetType
+from app.domain.entities.portfolio import Portfolio
 from app.domain.exceptions import PortfolioNotFound, AssetTypeNotFound
 
 
 def make_fake_portfolio(id_=None):
-    p = MagicMock()
-    p.id = str(id_ or uuid4())
-    return p
+    pid = id_ or uuid4()
+    now = datetime.now(timezone.utc)
+    return Portfolio(id=pid, name="Test Portfolio", base_currency="EUR", created_at=now, updated_at=now)
 
 
 def make_fake_asset_type(id_=None):
-    at = MagicMock()
-    at.id = str(id_ or uuid4())
-    return at
+    return AssetType(id=id_ or uuid4(), code="EQUITY", label="Equity")
 
 
 def test_create_asset_success(dummy_asset_repository, dummy_portfolio_repository):
@@ -44,8 +45,8 @@ def test_create_asset_success(dummy_asset_repository, dummy_portfolio_repository
 
     assert result.id is not None
     assert result.name == "Test Asset"
-    assert str(result.portfolio_id) == str(portfolio_id)
-    assert str(result.asset_type_id) == str(asset_type_id)
+    assert result.portfolio.id == portfolio_id
+    assert result.asset_type.id == asset_type_id
 
 
 def test_create_asset_portfolio_not_found(dummy_asset_repository, dummy_portfolio_repository):

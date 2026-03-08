@@ -1,5 +1,10 @@
 ![Strata logo](assets/logo.avif)
 
+[![CI](https://github.com/francoiducat/strata/actions/workflows/ci.yml/badge.svg)](https://github.com/francoiducat/strata/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/francoiducat/strata/graph/badge.svg)](https://codecov.io/gh/francoiducat/strata)
+![Python](https://img.shields.io/badge/python-3.12-blue.svg)
+[![Docs](https://img.shields.io/website?url=https%3A%2F%2Fstrata.ducatillon.net%2Fdocs%2F&label=docs)](https://strata.ducatillon.net/docs/)
+
 # Strata — backend
 
 Strata is a small, domain-driven FastAPI backend for organizing and managing assets (types, portfolios, snapshots, tags). This repository contains the backend application, migrations, tests and docs.

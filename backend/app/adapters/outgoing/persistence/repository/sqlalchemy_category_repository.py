@@ -1,76 +1,107 @@
 """
 SQLAlchemy Category Repository Implementation
-
-Concrete implementation of CategoryRepository using SQLAlchemy.
 """
-from typing import Optional, cast, Any
-from sqlalchemy.orm import Session
+from typing import Optional, List
+from sqlalchemy.orm import Session, joinedload
 
+from app.domain.entities.category import Category
 from app.domain.ports.repository.category_repository import ICategoryRepository
-from app.adapters.outgoing.persistence.models import CategoryModel
+from app.adapters.outgoing.persistence.models import CategoryModel, AssetModel
+from app.adapters.outgoing.persistence.mappers.persistence_mapper import PersistenceMapper
 
 
 class SQLAlchemyCategoryRepository(ICategoryRepository):
-    """
-    SQLAlchemy implementation of CategoryRepository.
-
-    Handles persistence operations for Category reference data.
-    """
+    """SQLAlchemy implementation of CategoryRepository."""
 
     def __init__(self, session: Session):
-        """
-        Initialize repository with persistence session.
-
-        Args:
-            session: SQLAlchemy session
-        """
         self._session = session
 
-    def save(self, entity: CategoryModel) -> CategoryModel:
-        """Save or update a category and return the saved entity."""
-        self._session.add(entity)
+    def save(self, entity: Category) -> Category:
+        orm_obj = self._session.get(CategoryModel, str(entity.id))
+        if orm_obj:
+            orm_obj.name = entity.name
+            orm_obj.parent_id = str(entity.parent.id) if entity.parent else None
+        else:
+            orm_obj = PersistenceMapper.category_to_orm(entity)
+            self._session.add(orm_obj)
         self._session.flush()
         return entity
 
-    def find_by_id(self, entity_id: str) -> Optional[CategoryModel]:
-        """Find category by id."""
-        return self._session.query(CategoryModel).filter(CategoryModel.id == entity_id).first()
+    def find_by_id(self, entity_id: str) -> Optional[Category]:
+        entity_id = str(entity_id)
+        orm_obj = self._session.query(CategoryModel).options(
+            joinedload(CategoryModel.parent)
+        ).filter(CategoryModel.id == entity_id).first()
+        return PersistenceMapper.category_to_domain(orm_obj) if orm_obj else None
 
-    def find_all(self) -> list[CategoryModel]:
-        """Return all categories."""
-        return cast(list[CategoryModel], cast(Any, self._session.query(CategoryModel).all()))
+    def find_all(self) -> List[Category]:
+        return [
+            PersistenceMapper.category_to_domain(c)
+            for c in self._session.query(CategoryModel).options(
+                joinedload(CategoryModel.parent)
+            ).all()
+        ]
 
     def delete(self, entity_id: str) -> bool:
-        """Delete category by id."""
-        obj = self.find_by_id(entity_id)
-        if obj:
-            self._session.delete(obj)
+        entity_id = str(entity_id)
+        orm_obj = self._session.query(CategoryModel).filter(CategoryModel.id == entity_id).first()
+        if orm_obj:
+            self._session.delete(orm_obj)
             self._session.flush()
             return True
         return False
 
     def exists(self, entity_id: str) -> bool:
-        """Check existence by id."""
+        entity_id = str(entity_id)
         return self._session.query(
             self._session.query(CategoryModel).filter(CategoryModel.id == entity_id).exists()
         ).scalar()
 
-    # Domain / interface-specific methods
-    def find_by_name(self, name: str) -> Optional[CategoryModel]:
-        """Find category by exact name."""
-        return self._session.query(CategoryModel).filter(CategoryModel.name == name).first()
+    def find_by_name(self, name: str) -> Optional[Category]:
+        orm_obj = self._session.query(CategoryModel).options(
+            joinedload(CategoryModel.parent)
+        ).filter(CategoryModel.name == name).first()
+        return PersistenceMapper.category_to_domain(orm_obj) if orm_obj else None
 
-    def find_root_categories(self) -> list[CategoryModel]:
-        """Find all root categories (no parent)."""
-        return self._session.query(CategoryModel).filter(CategoryModel.parent_id == None).all()
+    def find_by_asset(self, asset_id: str) -> List[Category]:
+        asset = self._session.query(AssetModel).options(
+            joinedload(AssetModel.categories).joinedload(CategoryModel.parent)
+        ).filter(AssetModel.id == str(asset_id)).first()
+        return [PersistenceMapper.category_to_domain(c) for c in asset.categories] if asset else []
 
-    def find_children(self, parent_id: str) -> list[CategoryModel]:
-        """Find all children of a category."""
-        return self._session.query(CategoryModel).filter(CategoryModel.parent_id == parent_id).all()
+    def attach_to_asset(self, asset_id: str, category_id: str) -> bool:
+        asset = self._session.query(AssetModel).filter(AssetModel.id == str(asset_id)).first()
+        cat = self._session.query(CategoryModel).filter(CategoryModel.id == str(category_id)).first()
+        if asset and cat and cat not in asset.categories:
+            asset.categories.append(cat)
+            self._session.flush()
+            return True
+        return False
 
-    def count_assets(self, category_id: str) -> int:
-        """Count number of assets by id."""
-        from app.adapters.outgoing.persistence.models import AssetModel
+    def detach_from_asset(self, asset_id: str, category_id: str) -> bool:
+        asset = self._session.query(AssetModel).options(
+            joinedload(AssetModel.categories)
+        ).filter(AssetModel.id == str(asset_id)).first()
+        cat = self._session.query(CategoryModel).filter(CategoryModel.id == str(category_id)).first()
+        if asset and cat and cat in asset.categories:
+            asset.categories.remove(cat)
+            self._session.flush()
+            return True
+        return False
+
+    def find_root_categories(self) -> List[Category]:
+        rows = self._session.query(CategoryModel).filter(
+            CategoryModel.parent_id == None
+        ).all()
+        return [PersistenceMapper.category_to_domain(c) for c in rows]
+
+    def find_children(self, parent_id) -> List[Category]:
+        rows = self._session.query(CategoryModel).options(
+            joinedload(CategoryModel.parent)
+        ).filter(CategoryModel.parent_id == str(parent_id)).all()
+        return [PersistenceMapper.category_to_domain(c) for c in rows]
+
+    def count_assets(self, category_id) -> int:
         return self._session.query(AssetModel).join(
             AssetModel.categories
-        ).filter(CategoryModel.id == category_id).count()
+        ).filter(CategoryModel.id == str(category_id)).count()

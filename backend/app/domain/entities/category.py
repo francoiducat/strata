@@ -27,6 +27,12 @@ class Category(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
+    def __hash__(self) -> int:
+        return hash(self.id)
+
+    def __eq__(self, other: object) -> bool:
+        return isinstance(other, Category) and self.id == other.id
+
     def get_hierarchy(self) -> List[Category]:
         """
         Returns the hierarchical path from the current category up to the root.

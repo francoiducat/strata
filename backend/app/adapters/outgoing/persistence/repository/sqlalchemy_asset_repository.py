@@ -1,209 +1,204 @@
 """
 SQLAlchemy Asset Repository Implementation
-
-Concrete implementation of AssetRepository using SQLAlchemy.
 """
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from sqlalchemy.orm import Session, joinedload, subqueryload
 
+from app.domain.entities.asset import Asset
 from app.domain.ports.repository.asset_repository import IAssetRepository
 from app.adapters.outgoing.persistence.models.asset import AssetModel
 from app.adapters.outgoing.persistence.models import CategoryModel, TagModel
+from app.adapters.outgoing.persistence.mappers.persistence_mapper import PersistenceMapper
 
 
 class SQLAlchemyAssetRepository(IAssetRepository):
-    """
-    SQLAlchemy implementation of AssetRepository.
-
-    Handles persistence operations for Asset aggregates.
-    """
+    """SQLAlchemy implementation of AssetRepository."""
 
     def __init__(self, session: Session):
-        """
-        Initialize repository with persistence session.
-
-        Args:
-            session: SQLAlchemy session
-        """
         self._session = session
 
-    def save(self, entity: AssetModel) -> AssetModel:
-        """
-        Save (create or update) an asset.
+    def _load_full(self, asset_id: str) -> Optional[AssetModel]:
+        """Load an AssetModel with all required eager relationships."""
+        return self._session.query(AssetModel).options(
+            joinedload(AssetModel.portfolio),
+            joinedload(AssetModel.asset_type),
+            joinedload(AssetModel.tags),
+            joinedload(AssetModel.categories).joinedload(CategoryModel.parent),
+        ).filter(AssetModel.id == str(asset_id)).first()
 
-        Args:
-            entity: Asset to save
-
-        Returns:
-            The saved Asset with DB-generated fields populated (after flush)
-        """
-        self._session.add(entity)
+    def save(self, entity: Asset) -> Asset:
+        orm_obj = self._session.get(AssetModel, str(entity.id))
+        if orm_obj:
+            orm_obj.name = entity.name
+            orm_obj.portfolio_id = str(entity.portfolio.id)
+            orm_obj.asset_type_id = str(entity.asset_type.id)
+            orm_obj.quantity = entity.quantity
+            orm_obj.disposed = entity.disposed
+            orm_obj.updated_at = entity.updated_at
+            orm_obj.updated_by = entity.updated_by
+        else:
+            orm_obj = PersistenceMapper.asset_to_orm(entity)
+            self._session.add(orm_obj)
         self._session.flush()
         return entity
 
-    def find_by_id(self, entity_id: str) -> Optional[AssetModel]:
-        """
-        Find asset by ID.
+    def find_by_id(self, entity_id: str) -> Optional[Asset]:
+        orm_obj = self._load_full(str(entity_id))
+        return PersistenceMapper.asset_to_domain(orm_obj) if orm_obj else None
 
-        Args:
-            entity_id: UUID of asset
-
-        Returns:
-            Asset if found, None otherwise
-        """
-        return self._session.query(AssetModel).options(
-            joinedload(AssetModel.tags), joinedload(AssetModel.categories)
-        ).filter(AssetModel.id == str(entity_id)).first()
-
-    def find_all(self) -> list[AssetModel]:
-        """
-        Get all assets.
-
-        Returns:
-            list of all assets
-        """
-        return self._session.query(AssetModel).options(
-            subqueryload(AssetModel.tags), subqueryload(AssetModel.categories)
+    def find_all(self) -> List[Asset]:
+        rows = self._session.query(AssetModel).options(
+            joinedload(AssetModel.portfolio),
+            joinedload(AssetModel.asset_type),
+            subqueryload(AssetModel.tags),
+            subqueryload(AssetModel.categories).joinedload(CategoryModel.parent),
         ).all()
+        return [PersistenceMapper.asset_to_domain(r) for r in rows]
 
     def delete(self, entity_id: str) -> bool:
-        """
-        Delete asset by ID.
-
-        Args:
-            entity_id: UUID of asset
-
-        Returns:
-            True if deleted, False if not found
-        """
-        asset = self.find_by_id(entity_id)
-        if asset:
-            self._session.delete(asset)
+        orm_obj = self._session.query(AssetModel).filter(
+            AssetModel.id == str(entity_id)
+        ).first()
+        if orm_obj:
+            self._session.delete(orm_obj)
             self._session.flush()
             return True
         return False
 
     def exists(self, entity_id: str) -> bool:
-        """
-        Check if an asset exists.
-
-        Args:
-            entity_id: UUID of asset
-
-        Returns:
-            True if exists, False otherwise
-        """
+        entity_id = str(entity_id)
         return self._session.query(
             self._session.query(AssetModel).filter(AssetModel.id == entity_id).exists()
         ).scalar()
 
-    # Domain / interface-specific methods
-    def find_by_portfolio(self, portfolio_id: str) -> list[AssetModel]: # type: ignore
-        """Return assets belonging to a portfolios."""
-        return self._session.query(AssetModel).filter(AssetModel.portfolio_id == portfolio_id).all()
+    def find_by_portfolio(self, portfolio_id: str) -> List[Asset]:
+        rows = self._session.query(AssetModel).options(
+            joinedload(AssetModel.portfolio),
+            joinedload(AssetModel.asset_type),
+            subqueryload(AssetModel.tags),
+            subqueryload(AssetModel.categories).joinedload(CategoryModel.parent),
+        ).filter(AssetModel.portfolio_id == str(portfolio_id)).all()
+        return [PersistenceMapper.asset_to_domain(r) for r in rows]
 
-    def find_by_type(self, asset_type_code: str) -> list[AssetModel]:
-        """Return assets of a given asset type code."""
-        return self._session.query(AssetModel).filter(AssetModel.type_id == asset_type_code).all()
+    def find_by_type(self, asset_type_code: str) -> List[Asset]:
+        rows = self._session.query(AssetModel).options(
+            joinedload(AssetModel.portfolio),
+            joinedload(AssetModel.asset_type),
+        ).filter(AssetModel.asset_type.has(code=asset_type_code)).all()
+        return [PersistenceMapper.asset_to_domain(r) for r in rows]
 
-    def find_by_category(self, category_id: str) -> list[AssetModel]:
-        """Return assets with a specific category."""
-        return self._session.query(AssetModel).join(AssetModel.categories).filter(CategoryModel.id == category_id).all()
+    def find_by_category(self, category_id: str) -> List[Asset]:
+        rows = self._session.query(AssetModel).options(
+            joinedload(AssetModel.portfolio),
+            joinedload(AssetModel.asset_type),
+        ).join(AssetModel.categories).filter(CategoryModel.id == str(category_id)).all()
+        return [PersistenceMapper.asset_to_domain(r) for r in rows]
 
-    def find_by_tag(self, tag_id: str) -> list[AssetModel]:
-        """Return assets with a specific tag."""
-        return self._session.query(AssetModel).join(AssetModel.tags).filter(TagModel.id == tag_id).all()
+    def find_by_tag(self, tag_id: str) -> List[Asset]:
+        rows = self._session.query(AssetModel).options(
+            joinedload(AssetModel.portfolio),
+            joinedload(AssetModel.asset_type),
+        ).join(AssetModel.tags).filter(TagModel.id == str(tag_id)).all()
+        return [PersistenceMapper.asset_to_domain(r) for r in rows]
 
-    def find_active(self, portfolio_id: str) -> list[AssetModel]:
-        """Return non-disposed assets in a portfolios."""
-        return self._session.query(AssetModel).filter(
-            AssetModel.portfolio_id == portfolio_id,
-            AssetModel.disposed == False
+    def find_active(self, portfolio_id: str) -> List[Asset]:
+        rows = self._session.query(AssetModel).options(
+            joinedload(AssetModel.portfolio),
+            joinedload(AssetModel.asset_type),
+        ).filter(
+            AssetModel.portfolio_id == str(portfolio_id),
+            AssetModel.disposed == False,
         ).all()
+        return [PersistenceMapper.asset_to_domain(r) for r in rows]
 
-    def find_disposed(self, portfolio_id: str) -> list[AssetModel]:
-        """Return disposed assets in a portfolios."""
-        return self._session.query(AssetModel).filter(
-            AssetModel.portfolio_id == portfolio_id,
-            AssetModel.disposed == True
+    def find_disposed(self, portfolio_id: str) -> List[Asset]:
+        rows = self._session.query(AssetModel).options(
+            joinedload(AssetModel.portfolio),
+            joinedload(AssetModel.asset_type),
+        ).filter(
+            AssetModel.portfolio_id == str(portfolio_id),
+            AssetModel.disposed == True,
         ).all()
+        return [PersistenceMapper.asset_to_domain(r) for r in rows]
 
     def find_with_snapshots(
-            self,
-            asset_id: str,
-            start_date: Optional[datetime] = None,
-            end_date: Optional[datetime] = None
-    ) -> Optional[AssetModel]:
-        """Find asset with snapshots in date range."""
+        self,
+        asset_id: str,
+        start_date: Optional[datetime] = None,
+        end_date: Optional[datetime] = None,
+    ) -> Optional[Asset]:
         from app.adapters.outgoing.persistence.models import AssetSnapshotModel
 
-        asset = self.find_by_id(asset_id)
-
-        if not asset:
+        orm_obj = self._load_full(str(asset_id))
+        if not orm_obj:
             return None
 
-        # Load snapshots with filters applied at the DB level.
-        # This is more efficient than loading all snapshots and filtering in Python.
         snapshot_query = self._session.query(AssetSnapshotModel).filter(
-            AssetSnapshotModel.asset_id == asset_id
+            AssetSnapshotModel.asset_id == str(asset_id)
         )
         if start_date:
-            snapshot_query = snapshot_query.filter(AssetSnapshotModel.date >= start_date)
+            snapshot_query = snapshot_query.filter(AssetSnapshotModel.observed_at >= start_date)
         if end_date:
-            snapshot_query = snapshot_query.filter(AssetSnapshotModel.date <= end_date)
+            snapshot_query = snapshot_query.filter(AssetSnapshotModel.observed_at <= end_date)
 
-        asset.snapshots = snapshot_query.all() # type: ignore
-        return asset
+        orm_obj.snapshots = snapshot_query.all()
+
+        domain_asset = PersistenceMapper.asset_to_domain(orm_obj, load_snapshots=True)
+        return domain_asset
 
     def add_category(self, asset_id: str, category_id: str) -> bool:
-        """Attach category to an asset (many-to-many)."""
-        asset = self._session.query(AssetModel).options(joinedload(AssetModel.categories)).filter(AssetModel.id == asset_id).first()
+        asset = self._session.query(AssetModel).options(
+            joinedload(AssetModel.categories)
+        ).filter(AssetModel.id == str(asset_id)).first()
         if asset:
-            # Avoid re-adding if the relationship already exists
-            category_ids = {c.id for c in asset.categories}
-            if category_id in category_ids:
-                return True  # Already associated
-
-            category = self._session.query(CategoryModel).filter(CategoryModel.id == category_id).first()
-            if category:
-                asset.categories.append(category)
+            if category_id in {c.id for c in asset.categories}:
+                return True
+            cat = self._session.query(CategoryModel).filter(
+                CategoryModel.id == str(category_id)
+            ).first()
+            if cat:
+                asset.categories.append(cat)
                 self._session.flush()
                 return True
         return False
 
     def remove_category(self, asset_id: str, category_id: str) -> bool:
-        """Remove category from an asset (many-to-many)."""
-        asset = self._session.query(AssetModel).options(joinedload(AssetModel.categories)).filter(AssetModel.id == asset_id).first()
+        asset = self._session.query(AssetModel).options(
+            joinedload(AssetModel.categories)
+        ).filter(AssetModel.id == str(asset_id)).first()
         if asset:
-            category_to_remove = next((c for c in asset.categories if c.id == category_id), None)
-            if category_to_remove:
-                asset.categories.remove(category_to_remove)
+            cat = next((c for c in asset.categories if c.id == str(category_id)), None)
+            if cat:
+                asset.categories.remove(cat)
                 self._session.flush()
                 return True
         return False
 
     def add_tag(self, asset_id: str, tag_id: str) -> bool:
-        """Add a tag to an asset."""
-        asset = self._session.query(AssetModel).options(joinedload(AssetModel.tags)).filter(AssetModel.id == asset_id).first()
+        asset = self._session.query(AssetModel).options(
+            joinedload(AssetModel.tags)
+        ).filter(AssetModel.id == str(asset_id)).first()
         if asset:
-            # Avoid re-adding if the relationship already exists
-            if tag_id not in {t.id for t in asset.tags}:
-                tag = self._session.query(TagModel).filter(TagModel.id == tag_id).first()
+            if str(tag_id) not in {t.id for t in asset.tags}:
+                tag = self._session.query(TagModel).filter(
+                    TagModel.id == str(tag_id)
+                ).first()
                 if not tag:
-                    return False # Tag not found
+                    return False
                 asset.tags.append(tag)
                 self._session.flush()
             return True
         return False
 
     def remove_tag(self, asset_id: str, tag_id: str) -> bool:
-        """Remove a tag from an asset."""
-        asset = self._session.query(AssetModel).options(joinedload(AssetModel.tags)).filter(AssetModel.id == asset_id).first()
+        asset = self._session.query(AssetModel).options(
+            joinedload(AssetModel.tags)
+        ).filter(AssetModel.id == str(asset_id)).first()
         if asset:
-            tag_to_remove = next((t for t in asset.tags if t.id == tag_id), None)
-            if tag_to_remove:
-                asset.tags.remove(tag_to_remove)
+            tag = next((t for t in asset.tags if t.id == str(tag_id)), None)
+            if tag:
+                asset.tags.remove(tag)
                 self._session.flush()
                 return True
         return False

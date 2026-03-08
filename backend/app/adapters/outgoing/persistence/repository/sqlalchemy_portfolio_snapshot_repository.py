@@ -1,66 +1,67 @@
 """
 SQLAlchemy PortfolioSnapshot Repository Implementation
-
-Concrete implementation of PortfolioSnapshotRepository using SQLAlchemy.
 """
-from typing import Optional, cast
-from datetime import datetime
+from typing import Optional, List
+from uuid import UUID
 from sqlalchemy.orm import Session
 
+from app.domain.entities.portfolio_snapshot import PortfolioSnapshot
 from app.domain.ports.repository.portfolio_snapshot_repository import IPortfolioSnapshotRepository
 from app.adapters.outgoing.persistence.models import PortfolioSnapshotModel
+from app.adapters.outgoing.persistence.mappers.persistence_mapper import PersistenceMapper
 
 
 class SQLAlchemyPortfolioSnapshotRepository(IPortfolioSnapshotRepository):
-    """
-    SQLAlchemy implementation of PortfolioSnapshotRepository.
-    """
+    """SQLAlchemy implementation of PortfolioSnapshotRepository."""
 
     def __init__(self, session: Session):
-        """Initialize repository with persistence session."""
         self._session = session
 
-    def save(self, entity: PortfolioSnapshotModel) -> PortfolioSnapshotModel:
-        """Persist a portfolios snapshot and return the saved entity."""
-        self._session.add(entity)
+    def save(self, entity: PortfolioSnapshot) -> PortfolioSnapshot:
+        orm_obj = self._session.get(PortfolioSnapshotModel, str(entity.id))
+        if orm_obj:
+            orm_obj.value = entity.value
+            orm_obj.observed_at = entity.observed_at
+        else:
+            orm_obj = PersistenceMapper.portfolio_snapshot_to_orm(entity)
+            self._session.add(orm_obj)
         self._session.flush()
         return entity
 
-    def find_by_id(self, entity_id: str) -> Optional[PortfolioSnapshotModel]:
-        """Find snapshot by id."""
-        return self._session.query(PortfolioSnapshotModel).filter(PortfolioSnapshotModel.id == entity_id).first()
+    def find_by_id(self, entity_id: str) -> Optional[PortfolioSnapshot]:
+        entity_id = str(entity_id)
+        orm_obj = self._session.query(PortfolioSnapshotModel).filter(
+            PortfolioSnapshotModel.id == entity_id
+        ).first()
+        return PersistenceMapper.portfolio_snapshot_to_domain(orm_obj) if orm_obj else None
 
-    def find_all(self) -> list[PortfolioSnapshotModel]:
-        """Return all portfolios snapshots."""
-        return cast(list[PortfolioSnapshotModel], self._session.query(PortfolioSnapshotModel).all())
+    def find_all(self) -> List[PortfolioSnapshot]:
+        return [
+            PersistenceMapper.portfolio_snapshot_to_domain(s)
+            for s in self._session.query(PortfolioSnapshotModel).all()
+        ]
 
     def delete(self, entity_id: str) -> bool:
-        """Delete snapshot by id."""
-        obj = self.find_by_id(entity_id)
-        if obj:
-            self._session.delete(obj)
+        entity_id = str(entity_id)
+        orm_obj = self._session.query(PortfolioSnapshotModel).filter(
+            PortfolioSnapshotModel.id == entity_id
+        ).first()
+        if orm_obj:
+            self._session.delete(orm_obj)
             self._session.flush()
             return True
         return False
 
     def exists(self, entity_id: str) -> bool:
-        """Check snapshot existence by id."""
+        entity_id = str(entity_id)
         return self._session.query(
-            self._session.query(PortfolioSnapshotModel).filter(PortfolioSnapshotModel.id == entity_id).exists()
+            self._session.query(PortfolioSnapshotModel).filter(
+                PortfolioSnapshotModel.id == entity_id
+            ).exists()
         ).scalar()
 
-    # Domain / interface-specific methods (keep in same order as the port)
-    def get_snapshots(self, portfolio_id: str, start_date: Optional[datetime] = None, end_date: Optional[datetime] = None) -> list[PortfolioSnapshotModel]:
-        """Retrieve snapshots for a portfolios optionally filtered by date range."""
-        q = self._session.query(PortfolioSnapshotModel).filter(PortfolioSnapshotModel.portfolio_id == portfolio_id)
-        if start_date:
-            q = q.filter(PortfolioSnapshotModel.observed_at >= start_date)
-        if end_date:
-            q = q.filter(PortfolioSnapshotModel.observed_at <= end_date)
-        return cast(list[PortfolioSnapshotModel], q.all())
-
-    def get_latest_snapshot(self, portfolio_id: str) -> Optional[PortfolioSnapshotModel]:
-        """Return the latest snapshot for a portfolios or None."""
-        return self._session.query(PortfolioSnapshotModel).filter(
-            PortfolioSnapshotModel.portfolio_id == portfolio_id
-        ).order_by(PortfolioSnapshotModel.observed_at.desc()).first()
+    def get_snapshots(self, portfolio_id: UUID) -> List[PortfolioSnapshot]:
+        rows = self._session.query(PortfolioSnapshotModel).filter(
+            PortfolioSnapshotModel.portfolio_id == str(portfolio_id)
+        ).all()
+        return [PersistenceMapper.portfolio_snapshot_to_domain(s) for s in rows]
