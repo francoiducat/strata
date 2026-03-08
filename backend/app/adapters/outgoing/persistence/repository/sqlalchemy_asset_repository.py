@@ -5,7 +5,7 @@ Concrete implementation of AssetRepository using SQLAlchemy.
 """
 from datetime import datetime
 from typing import Optional
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session, joinedload, subqueryload
 
 from app.domain.ports.repository.asset_repository import IAssetRepository
 from app.adapters.outgoing.persistence.models.asset import AssetModel
@@ -52,7 +52,9 @@ class SQLAlchemyAssetRepository(IAssetRepository):
         Returns:
             Asset if found, None otherwise
         """
-        return self._session.query(AssetModel).filter(AssetModel.id == entity_id).first()
+        return self._session.query(AssetModel).options(
+            joinedload(AssetModel.tags), joinedload(AssetModel.categories)
+        ).filter(AssetModel.id == str(entity_id)).first()
 
     def find_all(self) -> list[AssetModel]:
         """
@@ -61,7 +63,9 @@ class SQLAlchemyAssetRepository(IAssetRepository):
         Returns:
             list of all assets
         """
-        return self._session.query(AssetModel).all()
+        return self._session.query(AssetModel).options(
+            subqueryload(AssetModel.tags), subqueryload(AssetModel.categories)
+        ).all()
 
     def delete(self, entity_id: str) -> bool:
         """

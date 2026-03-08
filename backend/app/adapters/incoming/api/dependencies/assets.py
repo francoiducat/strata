@@ -12,10 +12,13 @@ from app.application.use_cases.asset.get_asset import GetAssetUseCase
 from app.application.use_cases.asset.get_all_assets import GetAllAssetsUseCase
 from app.application.use_cases.asset.update_asset import UpdateAssetUseCase
 from app.application.use_cases.asset.delete_asset import DeleteAssetUseCase
+from app.application.use_cases.asset.dispose_asset import DisposeAssetUseCase
+from app.application.use_cases.asset.get_assets_by_portfolio import GetAssetsByPortfolioUseCase
 from app.domain.ports.repository import IAssetRepository, IAssetTypeRepository, IPortfolioRepository
 from app.adapters.outgoing.persistence.database import SessionLocal
 from app.adapters.outgoing.persistence.repository.sqlalchemy_asset_repository import SQLAlchemyAssetRepository
 from app.adapters.outgoing.persistence.repository.sqlalchemy_asset_type_repository import SQLAlchemyAssetTypeRepository
+from app.adapters.outgoing.persistence.repository.sqlalchemy_portfolio_repository import SQLAlchemyPortfolioRepository
 
 
 # Dependency to get a DB session
@@ -25,6 +28,11 @@ def get_db_session() -> Generator[Session, None, None]:
         yield db
     finally:
         db.close()
+
+
+def _get_portfolio_repository(db: Session = Depends(get_db_session)) -> IPortfolioRepository:
+    """Portfolio repository using the assets module's DB session."""
+    return SQLAlchemyPortfolioRepository(db)
 
 
 # Repository providers for assets
@@ -52,23 +60,9 @@ def get_asset_use_case(
 def create_asset_use_case(
     asset_repo: IAssetRepository = Depends(get_asset_repository),
     asset_type_repo: IAssetTypeRepository = Depends(get_asset_type_repository),
-    # portfolio repo is imported lazily to avoid circular import at module import time
+    portfolio_repo: IPortfolioRepository = Depends(_get_portfolio_repository),
 ) -> CreateAssetUseCase:
-    # Import portfolio repository provider lazily (avoids circular module import)
-    from app.adapters.incoming.api.dependencies.portfolios import get_portfolio_repository
-
-    # Use Depends on the portfolio provider when FastAPI resolves dependencies
-    portfolio_repo: IPortfolioRepository = Depends(get_portfolio_repository)  # type: ignore
-
-    # Return a factory-like object for FastAPI; actual call happens when FastAPI resolves deps
-    def _factory(
-        asset_repo_inner: IAssetRepository = asset_repo,
-        portfolio_repo_inner: IPortfolioRepository = portfolio_repo,
-        asset_type_repo_inner: IAssetTypeRepository = asset_type_repo,
-    ) -> CreateAssetUseCase:
-        return CreateAssetUseCase(asset_repo_inner, portfolio_repo_inner, asset_type_repo_inner)
-
-    return _factory()  # FastAPI will not call this at module import in our tests; we return instance
+    return CreateAssetUseCase(asset_repo, portfolio_repo, asset_type_repo)
 
 
 def update_asset_use_case(
@@ -83,6 +77,19 @@ def delete_asset_use_case(
     return DeleteAssetUseCase(asset_repository)
 
 
+def dispose_asset_use_case(
+    asset_repository: IAssetRepository = Depends(get_asset_repository),
+) -> DisposeAssetUseCase:
+    return DisposeAssetUseCase(asset_repository)
+
+
+def get_assets_by_portfolio_use_case(
+    asset_repo: IAssetRepository = Depends(get_asset_repository),
+    portfolio_repo: IPortfolioRepository = Depends(_get_portfolio_repository),
+) -> GetAssetsByPortfolioUseCase:
+    return GetAssetsByPortfolioUseCase(asset_repo, portfolio_repo)
+
+
 __all__ = [
     'get_db_session',
     'get_asset_repository',
@@ -92,4 +99,6 @@ __all__ = [
     'create_asset_use_case',
     'update_asset_use_case',
     'delete_asset_use_case',
+    'dispose_asset_use_case',
+    'get_assets_by_portfolio_use_case',
 ]

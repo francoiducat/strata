@@ -13,3 +13,11 @@ class PortfolioNotFound(Exception):
 
 class CategoryNotFound(Exception):
     """Raised when a category is not found."""
+class TagNotFound(Exception):
+    """Raised when a tag is not found."""
+
+class DuplicateName(Exception):
+    """Raised when a name violates a unique constraint (tags, categories)."""
+
+class CategoryHasChildren(Exception):
+    """Raised when attempting to delete a category that has child categories."""

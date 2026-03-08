@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-from app.domain.entities.asset import Asset
+from app.adapters.outgoing.persistence.models.asset import AssetModel
 from app.domain.exceptions import AssetNotFound, CategoryNotFound
 from app.domain.ports.repository import IAssetRepository, ICategoryRepository
 
@@ -31,7 +31,7 @@ class AddAssetToCategoryUseCase:
         self.asset_repository = asset_repository
         self.category_repository = category_repository
 
-    def execute(self, command: AddAssetToCategoryCommand) -> Asset:
+    def execute(self, command: AddAssetToCategoryCommand) -> AssetModel:
         """
         Associates an asset with a category and persists the change.
 
@@ -39,14 +39,14 @@ class AddAssetToCategoryUseCase:
             AssetNotFound: If the asset does not exist.
             CategoryNotFound: If the category does not exist.
         """
-        asset = self.asset_repository.find_by_id(command.asset_id)
+        asset = self.asset_repository.find_by_id(str(command.asset_id))
         if not asset:
             raise AssetNotFound(f"Asset with id {command.asset_id} not found.")
 
-        category = self.category_repository.find_by_id(command.category_id)
+        category = self.category_repository.find_by_id(str(command.category_id))
         if not category:
             raise CategoryNotFound(f"Category with id {command.category_id} not found.")
 
-        asset.add_category(category)
-        return self.asset_repository.save(asset)
+        self.asset_repository.add_category(str(command.asset_id), str(command.category_id))
+        return asset
 

@@ -78,13 +78,51 @@ Registered in `main.py` with `app.include_router(..., prefix="/api/v1")`.
 
 **Exception handling**: Domain exceptions (e.g. `AssetNotFound`) are defined in `domain/exceptions/Exceptions.py` and mapped to HTTP 404 in `main.py` exception handlers. Add new domain exceptions there and register a handler.
 
-**Asset types** are a fixed reference list seeded via Alembic migration: `CHECKING_ACCOUNTS`, `SAVINGS_ACCOUNTS`, `CASH`, `REAL_ESTATE`, `LOAN`, `STOCKS_AND_FUNDS`, `CRYPTO`, `PERSONAL_ITEMS`, `COLLECTIONS`, `OTHER`.
+**Asset types** are a fixed reference list seeded via Alembic migration. Real codes in the DB: `CHECKING_ACCOUNT`, `SAVINGS_ACCOUNT`, `CASH`, `REAL_ESTATE`, `STOCKS`, `CRYPTO`, `BONDS`, `PERSONAL_PROPERTY`, `VEHICLE`, `LOAN`, `COLLECTIBLES`, `BUSINESS`, `OTHER`.
 
 ## Testing Conventions
 
-Tests live in `backend/tests/unit/`. Use fake in-memory repositories (see `conftest.py` for `dummy_asset_repository`, `dummy_portfolio_repository`) — do not use real DB in unit tests. Integration tests use `fastapi.testclient.TestClient` with the full app.
+Tests live in `backend/tests/`. Two suites:
 
-When adding a use case, add a corresponding test in `tests/unit/app/` before touching adapters.
+**Unit tests** (`tests/unit/`): zero real DB.
+- Route tests use `app.dependency_overrides` to inject fake use cases.
+- Use case tests use fake in-memory repositories backed by Python dicts (see `conftest.py` for `dummy_asset_repository`, `dummy_portfolio_repository`).
+
+**Integration tests** (`tests/integration/`): use a dedicated `sqlite:///:memory:` engine, call `Base.metadata.create_all(engine)` at setup, and override `get_db_session` via `app.dependency_overrides`. The production `strata.db` is never touched.
+
+When adding a use case, add a corresponding unit test in `tests/unit/app/` before touching adapters.
+
+## ORM vs Domain Entity Rule
+
+**Write use cases must construct ORM models directly** (never Pydantic domain entities) — `session.add()` requires SQLAlchemy ORM instances. See `CreatePortfolioUseCase` and `TakePortfolioSnapshotUseCase` as reference patterns. Example:
+
+```python
+from app.adapters.outgoing.persistence.models.asset import AssetModel
+new_asset = AssetModel(id=str(uuid4()), portfolio_id=str(command.portfolio_id), ...)
+return self.asset_repository.save(new_asset)
+```
+
+## Standard Error Responses
+
+All domain errors return a JSON body with `detail` (string). Domain exceptions (e.g. `AssetNotFound`, `CategoryNotFound`) are defined in `domain/exceptions/Exceptions.py` and mapped to HTTP 404 in `main.py` exception handlers. Add new domain exceptions there and register a handler.
+
+## Current API Endpoints
+
+All routes are under `/api/v1`:
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/portfolios/` | List all portfolios |
+| POST | `/portfolios/` | Create portfolio |
+| GET | `/portfolios/{portfolio_id}` | Get portfolio by ID |
+| DELETE | `/portfolios/{portfolio_id}` | Delete portfolio |
+| POST | `/portfolios/{portfolio_id}/snapshots` | Take portfolio snapshot |
+| GET | `/portfolios/{portfolio_id}/snapshots` | Get portfolio snapshots |
+| GET | `/assets/` | List all assets |
+| POST | `/assets/` | Create asset |
+| GET | `/assets/{asset_id}` | Get asset by ID |
+| PUT | `/assets/{asset_id}` | Update asset |
+| DELETE | `/assets/{asset_id}` | Delete asset |
 
 ## Codebase Map
 
@@ -100,7 +138,7 @@ When adding a use case, add a corresponding test in `tests/unit/app/` before tou
 | Persistence repos | `backend/app/adapters/outgoing/persistence/repository/` |
 | SQLAlchemy models | `backend/app/adapters/outgoing/persistence/models/` |
 | DB migrations | `backend/alembic/versions/` |
-| Tests | `backend/tests/unit/` |
+| Tests | `backend/tests/unit/` (unit) · `backend/tests/integration/` (integration) |
 | App entry point | `backend/app/main.py` |
 
 ## Config & Secrets

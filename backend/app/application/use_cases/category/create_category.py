@@ -6,8 +6,9 @@ from uuid import UUID, uuid4
 
 from pydantic import BaseModel
 
-from app.domain.entities.category import Category
+from app.adapters.outgoing.persistence.models.category import CategoryModel
 from app.domain.exceptions import CategoryNotFound
+from app.domain.exceptions.Exceptions import DuplicateName
 from app.domain.ports.repository import ICategoryRepository
 
 
@@ -26,21 +27,27 @@ class CreateCategoryUseCase:
     def __init__(self, category_repository: ICategoryRepository):
         self.category_repository = category_repository
 
-    def execute(self, command: CreateCategoryCommand) -> Category:
+    def execute(self, command: CreateCategoryCommand) -> CategoryModel:
         """
         Creates and persists a new category.
 
         Raises:
+            DuplicateName: If a category with the same name already exists.
             CategoryNotFound: If the parent category does not exist.
         """
-        parent_category = None
+        existing = self.category_repository.find_by_name(command.name)
+        if existing:
+            raise DuplicateName(f"Category with name '{command.name}' already exists.")
+
         if command.parent_id:
-            parent_category = self.category_repository.find_by_id(command.parent_id)
-            if not parent_category:
+            parent = self.category_repository.find_by_id(str(command.parent_id))
+            if not parent:
                 raise CategoryNotFound(f"Parent category with id {command.parent_id} not found.")
 
-        new_category = Category(
-            id=uuid4(), name=command.name, parent=parent_category
+        new_category = CategoryModel(
+            id=str(uuid4()),
+            name=command.name,
+            parent_id=str(command.parent_id) if command.parent_id else None,
         )
 
         return self.category_repository.save(new_category)
