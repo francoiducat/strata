@@ -11,6 +11,8 @@ from app.application.use_cases.portfolio.create_portfolio import CreatePortfolio
 from app.application.use_cases.portfolio.get_portfolio import GetPortfolioUseCase
 from app.application.use_cases.portfolio.delete_portfolio import DeletePortfolioUseCase
 from app.application.use_cases.portfolio.get_all_portfolios import GetAllPortfoliosUseCase
+from app.application.use_cases.portfolio.take_portfolio_snapshot import TakePortfolioSnapshotUseCase
+from app.application.use_cases.portfolio.get_portfolio_snapshots import GetPortfolioSnapshotsUseCase
 from app.domain.ports.repository import IPortfolioRepository
 from app.adapters.outgoing.persistence.database import SessionLocal
 from app.adapters.outgoing.persistence.repository.sqlalchemy_portfolio_repository import SQLAlchemyPortfolioRepository
@@ -55,6 +57,18 @@ def get_all_portfolios_use_case(
     return GetAllPortfoliosUseCase(portfolio_repository)
 
 
+def take_portfolio_snapshot_use_case(
+    portfolio_repository: IPortfolioRepository = Depends(get_portfolio_repository),
+) -> TakePortfolioSnapshotUseCase:
+    return TakePortfolioSnapshotUseCase(portfolio_repository)
+
+
+def get_portfolio_snapshots_use_case(
+    portfolio_repository: IPortfolioRepository = Depends(get_portfolio_repository),
+) -> GetPortfolioSnapshotsUseCase:
+    return GetPortfolioSnapshotsUseCase(portfolio_repository)
+
+
 __all__ = [
     'get_db_session',
     'get_portfolio_repository',
@@ -62,4 +76,6 @@ __all__ = [
     'get_portfolio_use_case',
     'delete_portfolio_use_case',
     'get_all_portfolios_use_case',
+    'take_portfolio_snapshot_use_case',
+    'get_portfolio_snapshots_use_case',
 ]

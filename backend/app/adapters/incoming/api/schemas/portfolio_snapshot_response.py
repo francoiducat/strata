@@ -1,3 +1,6 @@
+"""
+Pydantic schemas for PortfolioSnapshot API responses.
+"""
 from datetime import datetime
 from decimal import Decimal
 from uuid import UUID
@@ -6,12 +9,10 @@ from pydantic import BaseModel
 from pydantic.config import ConfigDict
 
 
-class PortfolioResponse(BaseModel):
+class PortfolioSnapshotResponse(BaseModel):
     id: UUID
-    name: str
-    base_currency: str
-    total_value: Decimal = Decimal("0")
-    created_at: datetime
-    updated_at: datetime
+    portfolio_id: UUID
+    value: Decimal
+    observed_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

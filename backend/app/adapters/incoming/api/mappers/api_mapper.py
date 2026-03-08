@@ -1,12 +1,14 @@
 """
 Maps domain entities to API response schemas.
 """
+from decimal import Decimal
 from typing import List, Any
 
 from app.domain.entities.asset import Asset
 from app.domain.entities.portfolio import Portfolio
 from ..schemas.asset_response import AssetResponse
 from ..schemas.portfolio_response import PortfolioResponse
+from ..schemas.portfolio_snapshot_response import PortfolioSnapshotResponse
 
 
 class ApiMapper:
@@ -25,20 +27,38 @@ class ApiMapper:
 
     @staticmethod
     def to_portfolio_response(portfolio: Any) -> PortfolioResponse:
-        # Accept either domain Portfolio or SQLAlchemy PortfolioModel
+        # Accept either domain Portfolio or SQLAlchemy PortfolioModel.
+        # total_value is computed here from loaded ORM relationships because
+        # routes pass PortfolioModel (ORM), not the domain entity.
+        loaded_assets = getattr(portfolio, "assets", None) or []
+        total_value = sum(
+            (
+                Decimal(str(asset.snapshots[0].value))
+                for asset in loaded_assets
+                if not asset.disposed and asset.snapshots
+            ),
+            Decimal("0"),
+        )
         try:
-            return PortfolioResponse.model_validate(portfolio)
+            response = PortfolioResponse.model_validate(portfolio)
         except Exception:
-            # Fallback: create a dict from attributes
-            data = {
-                'id': getattr(portfolio, 'id', None),
-                'name': getattr(portfolio, 'name', None),
-                'base_currency': getattr(portfolio, 'base_currency', 'EUR'),
-                'created_at': getattr(portfolio, 'created_at', None),
-                'updated_at': getattr(portfolio, 'updated_at', None),
-            }
-            return PortfolioResponse.model_validate(data)
+            response = PortfolioResponse(
+                id=getattr(portfolio, "id"),
+                name=getattr(portfolio, "name"),
+                base_currency=getattr(portfolio, "base_currency", "EUR"),
+                created_at=getattr(portfolio, "created_at"),
+                updated_at=getattr(portfolio, "updated_at"),
+            )
+        return response.model_copy(update={"total_value": total_value})
 
     @staticmethod
     def to_portfolio_response_list(portfolios: List[Portfolio]) -> List[PortfolioResponse]:
         return [ApiMapper.to_portfolio_response(portfolio) for portfolio in portfolios]
+
+    @staticmethod
+    def to_portfolio_snapshot_response(snapshot: Any) -> PortfolioSnapshotResponse:
+        return PortfolioSnapshotResponse.model_validate(snapshot)
+
+    @staticmethod
+    def to_portfolio_snapshot_response_list(snapshots: List[Any]) -> List[PortfolioSnapshotResponse]:
+        return [ApiMapper.to_portfolio_snapshot_response(s) for s in snapshots]
