@@ -1,0 +1,3 @@
+coverage:
+  fixes:
+    - "/home/runner/work/strata/strata/backend/app/::backend/app/"
