@@ -11,15 +11,12 @@ from app.adapters.incoming.api.dependencies.categories import (
     get_category_use_case,
     delete_category_use_case,
 )
+from app.domain.entities.category import Category
 from app.domain.exceptions import CategoryNotFound, CategoryHasChildren, DuplicateName
 
 
 def make_category(name="Test"):
-    cat = MagicMock()
-    cat.id = uuid4()
-    cat.name = name
-    cat.parent_id = None
-    return cat
+    return Category(id=uuid4(), name=name, parent=None)
 
 
 def test_get_all_categories():

@@ -159,7 +159,7 @@ def dummy_asset_snapshot_repository():
             return self.storage.pop(str(id_), None) is not None
 
         def get_snapshots(self, asset_id, start_date=None, end_date=None):
-            return [v for v in self.storage.values() if v.asset_id == str(asset_id)]
+            return [v for v in self.storage.values() if str(v.asset_id) == str(asset_id)]
 
         def get_latest_snapshot(self, asset_id):
             snapshots = self.get_snapshots(asset_id)

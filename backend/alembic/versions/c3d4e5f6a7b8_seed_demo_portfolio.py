@@ -1,4 +1,4 @@
-"""Seed demo portfolio with assets, snapshots and net worth
+"""Seed demo portfolio with assets, categories and tags
 
 Revision ID: c3d4e5f6a7b8
 Revises: b2c3d4e5f6a7
@@ -23,72 +23,49 @@ depends_on: Union[str, Sequence[str], None] = None
 # ---------------------------------------------------------------------------
 
 # Portfolio
-PORTFOLIO_ID = 'e1000001-0000-0000-0000-000000000001'
+PORTFOLIO_ID = 'fea54085-57b9-41ba-9f22-3012c5fa40d8'
 
 # Assets
-ASSET_CHECKING   = 'a1000001-0000-0000-0000-000000000001'
-ASSET_SAVINGS    = 'a1000001-0000-0000-0000-000000000002'
-ASSET_STOCKS     = 'a1000001-0000-0000-0000-000000000003'
-ASSET_BITCOIN    = 'a1000001-0000-0000-0000-000000000004'
-ASSET_RESIDENCE  = 'a1000001-0000-0000-0000-000000000005'
-ASSET_CAR        = 'a1000001-0000-0000-0000-000000000006'
-ASSET_MORTGAGE   = 'a1000001-0000-0000-0000-000000000007'
-ASSET_CAR_LOAN   = 'a1000001-0000-0000-0000-000000000008'
+ASSET_CHECKING   = 'e1136fa0-02bb-4720-9314-683485b4e2ee'
+ASSET_SAVINGS    = '6540125c-ac5c-43e5-8091-f52bd86c8a91'
+ASSET_STOCKS     = '68f27860-8552-408f-92bb-98d7e71de783'
+ASSET_BITCOIN    = 'b8457fa8-6ac7-460e-ae1f-0d7d33a68ec3'
+ASSET_RESIDENCE  = 'f136feb4-7ac3-47b4-990c-21d04dac0417'
+ASSET_CAR        = 'c6d87a34-39a9-48f9-81b4-8b2191ad9b3d'
+ASSET_MORTGAGE   = '47dc7c65-b3ba-4c62-a274-48c7161d85d5'
+ASSET_CAR_LOAN   = '95b3bcac-3db1-41db-9d7c-aadb71df1b09'
 
 ALL_ASSET_IDS = [
     ASSET_CHECKING, ASSET_SAVINGS, ASSET_STOCKS, ASSET_BITCOIN,
     ASSET_RESIDENCE, ASSET_CAR, ASSET_MORTGAGE, ASSET_CAR_LOAN,
 ]
 
-# Asset snapshots
-SNAP_CHECKING   = 'b1000001-0000-0000-0000-000000000001'
-SNAP_SAVINGS    = 'b1000001-0000-0000-0000-000000000002'
-SNAP_STOCKS     = 'b1000001-0000-0000-0000-000000000003'
-SNAP_BITCOIN    = 'b1000001-0000-0000-0000-000000000004'
-SNAP_RESIDENCE  = 'b1000001-0000-0000-0000-000000000005'
-SNAP_CAR        = 'b1000001-0000-0000-0000-000000000006'
-SNAP_MORTGAGE   = 'b1000001-0000-0000-0000-000000000007'
-SNAP_CAR_LOAN   = 'b1000001-0000-0000-0000-000000000008'
+# Category UUIDs (from seed_categories migration — must stay in sync)
+CAT_FINANCIAL_ASSETS   = '205ed564-dfe1-4ecb-befe-1c4275fd549d'
+CAT_REAL_ESTATE        = '6297489b-b3db-49b8-aea9-7f8cbbebb105'
+CAT_PERSONAL_PROPERTY  = '8f44133e-5404-49e5-a984-4507dccfe9a9'
+CAT_LIABILITIES        = '899a4cb7-c465-49d4-85a3-410dededd0e1'
+CAT_CASH_BANKING       = '39bfd491-96e8-4b64-b882-864dd19b5c5b'
+CAT_INVESTMENTS        = '937700a0-b24b-4eb8-aaa6-8edb6354a05d'
+CAT_CRYPTOCURRENCY     = '65bae68e-d33b-4cca-bb20-cc7a84780143'
+CAT_RESIDENTIAL        = '6dfe992e-dbbd-48b9-816a-886306402ed7'
+CAT_VEHICLES           = '36684648-9dbd-410d-aece-7b3e27539714'
+CAT_LOANS_CREDIT       = '437d744f-2f03-4331-a23d-4ff745418865'
+CAT_MORTGAGES          = '4a7e6f5c-d1e3-4b92-9f08-5c2a1d8e7b34'
 
-ALL_SNAPSHOT_IDS = [
-    SNAP_CHECKING, SNAP_SAVINGS, SNAP_STOCKS, SNAP_BITCOIN,
-    SNAP_RESIDENCE, SNAP_CAR, SNAP_MORTGAGE, SNAP_CAR_LOAN,
-]
-
-# Portfolio snapshot
-PORTFOLIO_SNAP_ID = 'd1000001-0000-0000-0000-000000000001'
-
-# Category UUIDs (from seed_categories migration)
-CAT_FINANCIAL_ASSETS   = 'c0000001-0000-0000-0000-000000000001'
-CAT_REAL_ESTATE        = 'c0000001-0000-0000-0000-000000000002'
-CAT_PERSONAL_PROPERTY  = 'c0000001-0000-0000-0000-000000000003'
-CAT_LIABILITIES        = 'c0000001-0000-0000-0000-000000000005'
-CAT_CASH_BANKING       = 'c0000001-0000-0000-0000-000000000011'
-CAT_INVESTMENTS        = 'c0000001-0000-0000-0000-000000000012'
-CAT_CRYPTOCURRENCY     = 'c0000001-0000-0000-0000-000000000013'
-CAT_RESIDENTIAL        = 'c0000001-0000-0000-0000-000000000021'
-CAT_VEHICLES           = 'c0000001-0000-0000-0000-000000000032'
-CAT_LOANS_CREDIT       = 'c0000001-0000-0000-0000-000000000051'
-CAT_MORTGAGES          = 'c0000001-0000-0000-0000-000000000052'
-
-# Tag UUIDs (from seed_tags migration)
-TAG_LIQUID             = 'f1000001-0000-0000-0000-000000000001'
-TAG_LONG_TERM          = 'f1000001-0000-0000-0000-000000000002'
-TAG_PRIMARY_RESIDENCE  = 'f1000001-0000-0000-0000-000000000003'
-TAG_INSURED            = 'f1000001-0000-0000-0000-000000000005'
-TAG_TAX_ADVANTAGED     = 'f1000001-0000-0000-0000-000000000006'
-
-# Net worth = 5000 + 15000 + 25000 + 3500 + 350000 + 18000 − 220000 − 8000 = 188500
-PORTFOLIO_NET_WORTH = Decimal('188500.00')
+# Tag UUIDs (from seed_tags migration — must stay in sync)
+TAG_LIQUID             = '11668c10-673a-41d0-835a-36c1dc9a810e'
+TAG_LONG_TERM          = '7e7bfc70-6b27-4a63-a4d4-8c891d6c7f64'
+TAG_PRIMARY_RESIDENCE  = '733446e1-f89f-4dc4-a2ab-4a0118da0aae'
+TAG_INSURED            = 'b1d1d248-e359-4ab0-a071-d49e7056bb17'
+TAG_TAX_ADVANTAGED     = 'de3819fc-b521-4220-85a1-8d85ef21750a'
 
 
 def upgrade() -> None:
     """
-    Seed a demo portfolio with 8 assets, 8 asset snapshots,
-    16 category assignments, 8 tag assignments, and 1 portfolio snapshot.
-
-    All values are in EUR.
-    Liabilities use negative snapshot values (reduce net worth per PRD).
+    Seed a demo portfolio with 8 assets, 16 category assignments, and
+    8 tag assignments. No snapshots are included — the user will create
+    their first snapshot from the front-end app.
     """
 
     now = datetime.now(timezone.utc)
@@ -209,61 +186,13 @@ def upgrade() -> None:
         {'asset_id': ASSET_CAR,       'tag_id': TAG_INSURED},
     ])
 
-    # ------------------------------------------------------------------
-    # 5. Asset snapshots (8 rows — liabilities are negative values)
-    # ------------------------------------------------------------------
-    asset_snapshots_table = sa.table(
-        'asset_snapshots',
-        sa.column('id', sa.String),
-        sa.column('asset_id', sa.String),
-        sa.column('value', sa.Numeric),
-        sa.column('observed_at', sa.DateTime),
-    )
-    op.bulk_insert(asset_snapshots_table, [
-        {'id': SNAP_CHECKING,  'asset_id': ASSET_CHECKING,  'value': Decimal('5000.00'),    'observed_at': now},
-        {'id': SNAP_SAVINGS,   'asset_id': ASSET_SAVINGS,   'value': Decimal('15000.00'),   'observed_at': now},
-        {'id': SNAP_STOCKS,    'asset_id': ASSET_STOCKS,    'value': Decimal('25000.00'),   'observed_at': now},
-        {'id': SNAP_BITCOIN,   'asset_id': ASSET_BITCOIN,   'value': Decimal('3500.00'),    'observed_at': now},
-        {'id': SNAP_RESIDENCE, 'asset_id': ASSET_RESIDENCE, 'value': Decimal('350000.00'),  'observed_at': now},
-        {'id': SNAP_CAR,       'asset_id': ASSET_CAR,       'value': Decimal('18000.00'),   'observed_at': now},
-        {'id': SNAP_MORTGAGE,  'asset_id': ASSET_MORTGAGE,  'value': Decimal('-220000.00'), 'observed_at': now},
-        {'id': SNAP_CAR_LOAN,  'asset_id': ASSET_CAR_LOAN,  'value': Decimal('-8000.00'),   'observed_at': now},
-    ])
-
-    # ------------------------------------------------------------------
-    # 6. Portfolio snapshot (1 row — pre-calculated net worth = €188 500)
-    #    Going forward: created via POST /portfolios/{id}/snapshots
-    # ------------------------------------------------------------------
-    portfolio_snapshots_table = sa.table(
-        'portfolio_snapshots',
-        sa.column('id', sa.String),
-        sa.column('portfolio_id', sa.String),
-        sa.column('value', sa.Numeric),
-        sa.column('observed_at', sa.DateTime),
-    )
-    op.bulk_insert(portfolio_snapshots_table, [
-        {
-            'id': PORTFOLIO_SNAP_ID,
-            'portfolio_id': PORTFOLIO_ID,
-            'value': PORTFOLIO_NET_WORTH,
-            'observed_at': now,
-        }
-    ])
-
-    print(f"✅ Seeded demo portfolio '{PORTFOLIO_ID}' with net worth €{PORTFOLIO_NET_WORTH:,}")
+    print(f"✅ Seeded demo portfolio '{PORTFOLIO_ID}' with {len(ALL_ASSET_IDS)} assets")
 
 
 def downgrade() -> None:
     """Remove all seeded demo data in reverse FK order."""
 
     bind = op.get_bind()
-
-    # portfolio_snapshots
-    bind.execute(sa.text(f"DELETE FROM portfolio_snapshots WHERE id = '{PORTFOLIO_SNAP_ID}'"))
-
-    # asset_snapshots
-    ids_clause = ','.join(f"'{id}'" for id in ALL_SNAPSHOT_IDS)
-    bind.execute(sa.text(f"DELETE FROM asset_snapshots WHERE id IN ({ids_clause})"))
 
     # asset_tags
     assets_clause = ','.join(f"'{id}'" for id in ALL_ASSET_IDS)

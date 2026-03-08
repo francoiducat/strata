@@ -33,7 +33,7 @@ class PortfolioSnapshotModel(Base):
     )
 
     value: Mapped[Decimal] = mapped_column(
-        Numeric(20, 8),
+        Numeric(20, 2),
         nullable=False
     )
 

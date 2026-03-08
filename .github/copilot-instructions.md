@@ -147,5 +147,14 @@ All routes are under `/api/v1`:
 - Local overrides via `backend/.env` (loaded by `python-dotenv`). Never commit secrets.
 - Docker compose mounts `./backend/.data:/app/.data` for persistent SQLite.
 
+## Decimal Precision Conventions
+
+| Field type | SQLAlchemy | Python | Rationale |
+|---|---|---|---|
+| Monetary amounts (snapshot values, net worth) | `Numeric(20, 2)` | `Decimal` | Standard EUR/USD — 2 decimal places |
+| Asset quantities | `Numeric(20, 8)` | `Decimal` | Bitcoin satoshi precision (0.00000001 BTC) |
+
+**Rule:** Never use `float` for financial data. Always use `Decimal` / `Numeric`.
+
 ---
 For deep-dive docs: `.github/PRD.md` · `docs/` (live at https://strata.ducatillon.net/docs/)

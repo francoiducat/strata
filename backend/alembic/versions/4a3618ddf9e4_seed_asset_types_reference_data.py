@@ -73,15 +73,8 @@ def upgrade() -> None:
 def downgrade() -> None:
     """Remove seeded asset types"""
 
-    # Delete only the asset types we inserted
     codes = [at['code'] for at in ASSET_TYPES]
-
-    op.execute(
-        sa.text(
-            "DELETE FROM asset_types WHERE code IN :codes"
-        ).bindparams(
-            codes=tuple(codes)
-        )
-    )
+    ids_clause = ','.join(f"'{c}'" for c in codes)
+    op.execute(sa.text(f"DELETE FROM asset_types WHERE code IN ({ids_clause})"))
 
     print(f"✅ Removed {len(ASSET_TYPES)} asset types")

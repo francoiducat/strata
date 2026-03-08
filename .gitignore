@@ -25,3 +25,6 @@ docs/.venv/
 docs/site/
 /backend/tests/coverage/.coverage
 /backend/tests/coverage/html/
+cov_annotate/
+backend/cov_annotate/
+backend/coverage.xml

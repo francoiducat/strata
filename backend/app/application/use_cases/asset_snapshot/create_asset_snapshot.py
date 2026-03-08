@@ -1,12 +1,9 @@
-"""
-Use Case: Create Asset Snapshot
-"""
+"""Use Case: Create Asset Snapshot"""
 from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Optional
 from uuid import uuid4
-
-from app.adapters.outgoing.persistence.models.asset_snapshot import AssetSnapshotModel
+from app.domain.entities.asset_snapshot import AssetSnapshot
 from app.domain.exceptions import AssetNotFound
 from app.domain.ports.repository import IAssetSnapshotRepository, IAssetRepository
 
@@ -18,16 +15,15 @@ class CreateAssetSnapshotUseCase:
         self.snapshot_repo = snapshot_repo
         self.asset_repo = asset_repo
 
-    def execute(self, asset_id: str, value: Decimal, observed_at: Optional[datetime] = None) -> AssetSnapshotModel:
+    def execute(self, asset_id: str, value: Decimal, observed_at: Optional[datetime] = None) -> AssetSnapshot:
         asset = self.asset_repo.find_by_id(str(asset_id))
         if not asset:
             raise AssetNotFound(f"Asset with id {asset_id} not found.")
 
-        snapshot = AssetSnapshotModel(
-            id=str(uuid4()),
-            asset_id=str(asset_id),
+        snapshot = AssetSnapshot(
+            id=uuid4(),
+            asset_id=asset.id,
             value=value,
             observed_at=observed_at or datetime.now(timezone.utc),
         )
         return self.snapshot_repo.save(snapshot)
-

@@ -73,7 +73,7 @@ def upgrade() -> None:
     op.create_table('portfolio_snapshots',
     sa.Column('id', sa.String(length=36), nullable=False),
     sa.Column('portfolio_id', sa.String(length=36), nullable=False),
-    sa.Column('value', sa.Numeric(precision=20, scale=8), nullable=False),
+    sa.Column('value', sa.Numeric(precision=20, scale=2), nullable=False),
     sa.Column('observed_at', sa.DateTime(timezone=True), nullable=False),
     sa.ForeignKeyConstraint(['portfolio_id'], ['portfolios.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -90,7 +90,7 @@ def upgrade() -> None:
     op.create_table('asset_snapshots',
     sa.Column('id', sa.String(length=36), nullable=False),
     sa.Column('asset_id', sa.String(length=36), nullable=False),
-    sa.Column('value', sa.Numeric(precision=20, scale=8), nullable=False),
+    sa.Column('value', sa.Numeric(precision=20, scale=2), nullable=False),
     sa.Column('observed_at', sa.DateTime(timezone=True), nullable=False),
     sa.ForeignKeyConstraint(['asset_id'], ['assets.id'], ),
     sa.PrimaryKeyConstraint('id')

@@ -1,18 +1,14 @@
 """Unit tests for CreateCategoryUseCase."""
 import pytest
-from unittest.mock import MagicMock
 from uuid import uuid4
 
 from app.application.use_cases.category.create_category import CreateCategoryUseCase, CreateCategoryCommand
+from app.domain.entities.category import Category
 from app.domain.exceptions import DuplicateName, CategoryNotFound
 
 
-def make_fake_category(id_=None, name="Parent", parent_id=None):
-    cat = MagicMock()
-    cat.id = str(id_ or uuid4())
-    cat.name = name
-    cat.parent_id = str(parent_id) if parent_id else None
-    return cat
+def make_fake_category(id_=None, name="Parent", parent=None):
+    return Category(id=id_ or uuid4(), name=name, parent=parent)
 
 
 def test_create_category_no_parent(dummy_category_repository):
@@ -22,7 +18,7 @@ def test_create_category_no_parent(dummy_category_repository):
 
     assert result.id is not None
     assert result.name == "Equities"
-    assert result.parent_id is None
+    assert result.parent is None
 
 
 def test_create_category_with_parent(dummy_category_repository):
@@ -35,7 +31,8 @@ def test_create_category_with_parent(dummy_category_repository):
     result = use_case.execute(command)
 
     assert result.name == "Child"
-    assert str(result.parent_id) == str(parent_id)
+    assert result.parent is not None
+    assert str(result.parent.id) == str(parent_id)
 
 
 def test_create_category_duplicate_name(dummy_category_repository):
