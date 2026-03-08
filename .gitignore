@@ -28,3 +28,4 @@ docs/site/
 cov_annotate/
 backend/cov_annotate/
 backend/coverage.xml
+backend/tests/coverage/
