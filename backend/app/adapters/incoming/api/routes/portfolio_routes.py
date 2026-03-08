@@ -7,15 +7,20 @@ from app.application.use_cases.portfolio.create_portfolio import (
 from app.application.use_cases.portfolio.get_portfolio import GetPortfolioUseCase
 from app.application.use_cases.portfolio.delete_portfolio import DeletePortfolioUseCase
 from app.application.use_cases.portfolio.get_all_portfolios import GetAllPortfoliosUseCase
+from app.application.use_cases.portfolio.take_portfolio_snapshot import TakePortfolioSnapshotUseCase
+from app.application.use_cases.portfolio.get_portfolio_snapshots import GetPortfolioSnapshotsUseCase
 from app.adapters.incoming.api.dependencies.portfolios import (
     create_portfolio_use_case,
     get_portfolio_use_case,
     delete_portfolio_use_case,
     get_all_portfolios_use_case,
+    take_portfolio_snapshot_use_case,
+    get_portfolio_snapshots_use_case,
 )
 from app.adapters.incoming.api.mappers.api_mapper import ApiMapper
 from app.adapters.incoming.api.schemas.portfolio_request import PortfolioCreateRequest
 from app.adapters.incoming.api.schemas.portfolio_response import PortfolioResponse
+from app.adapters.incoming.api.schemas.portfolio_snapshot_response import PortfolioSnapshotResponse
 
 
 class PortfolioRoutes:
@@ -53,5 +58,25 @@ class PortfolioRoutes:
         ):
             use_case.execute(portfolio_id)
             return None
+
+        @router.post(
+            "/{portfolio_id}/snapshots",
+            response_model=PortfolioSnapshotResponse,
+            status_code=status.HTTP_201_CREATED,
+        )
+        def take_portfolio_snapshot(
+            portfolio_id: UUID,
+            use_case: TakePortfolioSnapshotUseCase = Depends(take_portfolio_snapshot_use_case),
+        ) -> PortfolioSnapshotResponse:
+            snapshot = use_case.execute(portfolio_id)
+            return ApiMapper.to_portfolio_snapshot_response(snapshot)
+
+        @router.get("/{portfolio_id}/snapshots", response_model=list[PortfolioSnapshotResponse])
+        def get_portfolio_snapshots(
+            portfolio_id: UUID,
+            use_case: GetPortfolioSnapshotsUseCase = Depends(get_portfolio_snapshots_use_case),
+        ) -> list[PortfolioSnapshotResponse]:
+            portfolio = use_case.execute(portfolio_id)
+            return ApiMapper.to_portfolio_snapshot_response_list(portfolio.snapshots or [])
 
         return router

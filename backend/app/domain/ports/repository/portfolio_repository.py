@@ -62,6 +62,16 @@ class IPortfolioRepository(BaseRepository[Portfolio]):
         pass
 
     @abstractmethod
+    def save_snapshot(self, snapshot) -> None:
+        """
+        Persist a PortfolioSnapshotModel.
+
+        Args:
+            snapshot: PortfolioSnapshotModel to persist
+        """
+        pass
+
+    @abstractmethod
     def count_assets(self, portfolio_id: UUID) -> int:
         """
         Count total assets in portfolios

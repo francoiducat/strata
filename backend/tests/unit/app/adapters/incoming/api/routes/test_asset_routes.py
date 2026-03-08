@@ -1,4 +1,3 @@
-# Mirrored test location for asset routes (copy)
 from fastapi.testclient import TestClient
 
 

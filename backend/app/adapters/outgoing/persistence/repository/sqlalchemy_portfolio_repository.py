@@ -5,10 +5,11 @@ Concrete implementation of PortfolioRepository using SQLAlchemy
 """
 from typing import Optional
 from datetime import datetime
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session, joinedload, subqueryload
 
 from app.domain.ports.repository.portfolio_repository import IPortfolioRepository
 from app.adapters.outgoing.persistence.models import PortfolioModel
+from app.adapters.outgoing.persistence.models.asset import AssetModel
 
 
 class SQLAlchemyPortfolioRepository(IPortfolioRepository):
@@ -61,12 +62,14 @@ class SQLAlchemyPortfolioRepository(IPortfolioRepository):
 
     def find_all(self) -> list[PortfolioModel]:
         """
-        Get all portfolios
+        Get all portfolios with assets and their latest snapshots eagerly loaded.
 
         Returns:
             List of all portfolios
         """
-        return self._session.query(PortfolioModel).all()
+        return self._session.query(PortfolioModel).options(
+            joinedload(PortfolioModel.assets).subqueryload(AssetModel.snapshots)
+        ).all()
 
     def delete(self, entity_id: str) -> bool:
         """
@@ -128,7 +131,7 @@ class SQLAlchemyPortfolioRepository(IPortfolioRepository):
         """
         portfolio_id = str(portfolio_id)
         return self._session.query(PortfolioModel).options(
-            joinedload(PortfolioModel.assets)
+            joinedload(PortfolioModel.assets).subqueryload(AssetModel.snapshots)
         ).filter(
             PortfolioModel.id == portfolio_id
         ).first()
@@ -168,6 +171,16 @@ class SQLAlchemyPortfolioRepository(IPortfolioRepository):
 
         portfolio.snapshots = snapshot_query.order_by(PortfolioSnapshotModel.observed_at.desc()).all() # type: ignore
         return portfolio
+
+    def save_snapshot(self, snapshot) -> None:
+        """
+        Persist a PortfolioSnapshotModel.
+
+        Args:
+            snapshot: PortfolioSnapshotModel to persist
+        """
+        self._session.add(snapshot)
+        self._session.commit()
 
     def count_assets(self, portfolio_id: str) -> int:
         """
