@@ -29,3 +29,9 @@ cov_annotate/
 backend/cov_annotate/
 backend/coverage.xml
 backend/tests/coverage/
+
+# Temporary files and logs
+tmp/
+
+# DNS zone exports
+ducatillon.net*.txt
