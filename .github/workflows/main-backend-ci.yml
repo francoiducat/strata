@@ -1,4 +1,4 @@
-name: CI
+name: Poetry run pytest with coverage
 
 on:
   push:
@@ -31,10 +31,6 @@ jobs:
       - name: Run tests with coverage
         working-directory: backend
         run: poetry run pytest --cov=app --cov-report=xml -q
-
-      - name: Fix coverage paths for Codecov
-        run: |
-          sed -i 's|<source>.*</source>|<source>backend/app</source>|' backend/coverage.xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
