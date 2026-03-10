@@ -7,7 +7,7 @@
 
 # Strata — backend
 
-Strata is a small, domain-driven FastAPI backend for organizing and managing assets (types, portfolios, snapshots, tags). This repository contains the backend application, migrations, tests and docs.
+Strata is a domain-driven FastAPI backend for organizing and managing assets (types, portfolios, snapshots, tags). This repository contains the backend application, migrations, tests and docs.
 
 ## Quick links
 - Source: `backend/`
@@ -77,4 +77,4 @@ poetry run alembic -c alembic/alembic.ini upgrade head
 
 ---
 
-For more detailed developer/docs information see the `docs/` folder.
+For more detailed developer docs information see the `docs/` folder.
