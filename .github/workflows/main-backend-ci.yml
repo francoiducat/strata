@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  test:
+  backend-test:
     runs-on: ubuntu-latest
 
     steps:
