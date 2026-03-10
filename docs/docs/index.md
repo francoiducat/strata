@@ -15,7 +15,7 @@ hide:
     - [Features](QuickStart.md)
     - [Use cases](UseCases.md)
 
--   [:material-code-braces:{ .lg .middle } __Developer Docs__](QuickStart.md)
+-   [:material-code-braces:{ .lg .middle } __Explore Developer Docs__](QuickStart.md)
 
     ---
 
