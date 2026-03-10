@@ -11,7 +11,7 @@ This guide helps you set up and run the backend, and gives you a fast overview o
 - Docker & Docker Compose (recommended)
 - OR Python 3.12+ with Poetry
 
-#### Run with Docker (Option 1: Recommended)
+#### Run with Docker(Option 1: Recommended)
 
 ```bash
 # Clone the repository
@@ -21,7 +21,7 @@ cd strata
 # Start the application with Docker Compose
 docker-compose up
 
-# Backend API: http://localhost:8000
+# Backend API available at: http://localhost:8000
 # MkDocs Documentation: http://localhost:8001
 ```
 
