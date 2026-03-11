@@ -21,6 +21,23 @@ services:
       --port 8000
       --reload
 
+  postgres:
+    image: postgres:15
+    container_name: strata-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: strata
+    volumes:
+      - ./backend/.pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   docs:
     image: strata-docs
     build:

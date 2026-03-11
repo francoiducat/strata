@@ -78,3 +78,17 @@ poetry run alembic -c alembic/alembic.ini upgrade head
 ---
 
 For more detailed developer docs information see the `docs/` folder.
+
+## Quickstart — local (Postgres via Docker Compose)
+To run the backend with Postgres using Docker Compose (from repo root):
+
+```bash
+docker compose up -d postgres
+cd backend
+export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/strata"
+poetry install
+poetry run alembic -c alembic/alembic.ini upgrade head
+poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Ensure the Postgres service is healthy before running migrations. The Docker Compose service name is `postgres` and the default credentials are `postgres/postgres` (for local dev only).
